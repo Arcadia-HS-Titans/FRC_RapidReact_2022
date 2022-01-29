@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 /**
@@ -17,12 +20,17 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private final PWMSparkMax PURPLE_MOTOR = new PWMSparkMax(0);
-  private final PWMSparkMax BROWN_MOTOR = new PWMSparkMax(1);
-  private final PWMSparkMax YELLOW_MOTOR = new PWMSparkMax(2);
-  private final PWMSparkMax ORANGE_MOTOR = new PWMSparkMax(3);
-  private final DifferentialDrive robotDrive1 = new DifferentialDrive(ORANGE_MOTOR, PURPLE_MOTOR);
-  private final DifferentialDrive robotDrive2 = new DifferentialDrive(YELLOW_MOTOR, BROWN_MOTOR);
+  //LEFT
+  private final PWMSparkMax PURPLE_MOTOR = new PWMSparkMax(9);
+  private final PWMSparkMax BROWN_MOTOR = new PWMSparkMax(8);
+  MotorController leftController = new MotorControllerGroup(PURPLE_MOTOR, BROWN_MOTOR);
+  //RIGHT
+  private final PWMSparkMax YELLOW_MOTOR = new PWMSparkMax(7);
+  private final PWMSparkMax ORANGE_MOTOR = new PWMSparkMax(6);
+  MotorController rightController = new MotorControllerGroup(YELLOW_MOTOR, ORANGE_MOTOR);
+
+  private final DifferentialDrive robotDrive1 = new DifferentialDrive(leftController, rightController);
+
   private final Joystick m_stick = new Joystick(0);
   private final Timer m_timer = new Timer();
 
@@ -35,7 +43,7 @@ public class Robot extends TimedRobot {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    ORANGE_MOTOR.setInverted(true);
+    rightController.setInverted(true);
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -48,12 +56,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-/*    // Drive for 2 seconds
+    // Drive for 2 seconds
     if (m_timer.get() < 2.0) {
-      m_robotDrive.arcadeDrive(0.5, 0.0); // drive forwards half speed
+      robotDrive1.arcadeDrive(1, 1); // drive forwards half speed
     } else {
-      m_robotDrive.stopMotor(); // stop robot
-    }*/
+      robotDrive1.stopMotor(); // stop robot
+    }
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
@@ -64,7 +72,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     robotDrive1.arcadeDrive(m_stick.getY(), m_stick.getX());
-    robotDrive2.arcadeDrive(m_stick.getY(), m_stick.getX());
+    //robotDrive2.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
   /** This function is called once each time the robot enters test mode. */
