@@ -1,8 +1,10 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
 
 /**
@@ -11,10 +13,12 @@ import frc.robot.subsystems.DrivingSubsystem;
  */
 public class DrivingTeleopCommand extends CommandBase {
     private final DrivingSubsystem exampleSubsystem;
+    private final ColorSensorSubsystem colorSensorSubSystem;
     private final Joystick joystick;
 
     public DrivingTeleopCommand(DrivingSubsystem exampleSubsystem, Joystick joystick) {
         this.exampleSubsystem = exampleSubsystem;
+        this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         addRequirements(exampleSubsystem);
     }
@@ -46,5 +50,6 @@ public class DrivingTeleopCommand extends CommandBase {
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
+        DriverStation.reportWarning(colorSensorSubSystem.getColor().toString(), false);
     }
 }
