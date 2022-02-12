@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DrivingSubsystem extends SubsystemBase {
-    //TODO: For whatever reason, one of the controller groups will go faster than the ither
 
     // Left motors
     private final PWMSparkMax PURPLE_MOTOR = new PWMSparkMax(Constants.PURPLE_MOTOR_PORT);
