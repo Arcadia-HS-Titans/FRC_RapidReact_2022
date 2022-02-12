@@ -66,6 +66,7 @@ dependencies {
     simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
+    implementation files('libs/REVLib-java-2022.1.1.jar')
 }
 
 // Simulation configuration (e.g. environment variables).

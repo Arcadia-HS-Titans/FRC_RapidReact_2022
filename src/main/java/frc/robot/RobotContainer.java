@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DrivingTeleopCommand;
+import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
 
 /**
@@ -38,7 +39,8 @@ public class RobotContainer {
     public RobotContainer() {
         this.joystick = new Joystick(0);
         this.m_robotDrive = new DrivingSubsystem();
-        this.m_simpleAuto = new DrivingTeleopCommand(m_robotDrive, joystick);
+        this.m_colorSubsystem = new ColorSensorSubsystem();
+        this.m_simpleAuto = new DrivingTeleopCommand(m_robotDrive, joystick, m_colorSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
         m_robotDrive.setDefaultCommand(m_simpleAuto);

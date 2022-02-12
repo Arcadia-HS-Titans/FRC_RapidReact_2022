@@ -16,11 +16,12 @@ public class DrivingTeleopCommand extends CommandBase {
     private final ColorSensorSubsystem colorSensorSubSystem;
     private final Joystick joystick;
 
-    public DrivingTeleopCommand(DrivingSubsystem exampleSubsystem, Joystick joystick) {
+    public DrivingTeleopCommand(DrivingSubsystem exampleSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem) {
         this.exampleSubsystem = exampleSubsystem;
         this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         addRequirements(exampleSubsystem);
+        addRequirements(colorSensorSubSystem);
     }
 
     /**
@@ -50,6 +51,6 @@ public class DrivingTeleopCommand extends CommandBase {
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
-        DriverStation.reportWarning(colorSensorSubSystem.getColor().toString(), false);
+        DriverStation.reportWarning(colorSensorSubSystem.getColor().red + " " + colorSensorSubSystem.getColor().blue + " " + colorSensorSubSystem.getColor().green, false);
     }
 }
