@@ -55,7 +55,6 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
-        //String result = colorSensorSubSystem.read();
         String result = arduinoSubsystem.read();
         if(!result.equals("") && !result.equals(" "))
             DriverStation.reportWarning("THIS IS THE RESULT: " + result, false);

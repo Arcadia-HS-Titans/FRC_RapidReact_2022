@@ -23,7 +23,6 @@ public class RobotContainer {
     // The robot's subsystems
     private final DrivingSubsystem m_robotDrive;
     private final ArduinoSubsystem arduinoSubsystem;
-
     private final ColorSensorSubsystem m_colorSubsystem;
 
     public final Joystick joystick;

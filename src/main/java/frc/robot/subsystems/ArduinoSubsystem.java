@@ -9,18 +9,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArduinoSubsystem extends SubsystemBase {
     private SerialPort arduino;
 
-    private static final int MAX_BYTES = 32;
-
     public ArduinoSubsystem() {
         try {
             this.arduino = new SerialPort(9600, SerialPort.Port.kUSB1);
         } catch (Exception e) {
             DriverStation.reportError("Arduino could not connect: ", e.getStackTrace());
         }
-
     }
 
-    public void write(String input){//writes to the arduino
+    public void write(String input) {//writes to the arduino
         char[] CharArray = input.toCharArray();//creates a char array from the input string
         byte[] WriteData = new byte[CharArray.length];//creates a byte array from the char array
         for (int i = 0; i < CharArray.length; i++) {//writes each byte to the arduino
@@ -48,15 +45,7 @@ public class ArduinoSubsystem extends SubsystemBase {
     }
 */
 
-    public String read(){//function to read the data from arduino
-        //byte[] data = new byte[MAX_BYTES];//create a byte array to hold the incoming data
-        //arduino.read(4, MAX_BYTES, data);//use address 4 on i2c and store it in data
-        //String output = new String(data);//create a string from the byte array
-        //int[] information = new int[]{1, 3, 65,2,5,2,8,3,8,876,4,3,2,46,7,89,876543,2,22,34,43,};
-
-        return "";//return output;
-/*        int pt = output.indexOf((char)255);
-        return (String) output.subSequence(0, Math.max(pt, 0));//im not sure what these last two lines do*/
-        //sorry :(
+    public String read() {
+        return arduino.readString();
     }
 }
