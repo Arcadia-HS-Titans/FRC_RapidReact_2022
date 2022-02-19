@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DrivingTeleopCommand;
+import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
 
@@ -21,6 +22,7 @@ import frc.robot.subsystems.DrivingSubsystem;
 public class RobotContainer {
     // The robot's subsystems
     private final DrivingSubsystem m_robotDrive;
+    private final ArduinoSubsystem arduinoSubsystem;
 
     private final ColorSensorSubsystem m_colorSubsystem;
 
@@ -40,7 +42,8 @@ public class RobotContainer {
         this.joystick = new Joystick(0);
         this.m_robotDrive = new DrivingSubsystem();
         this.m_colorSubsystem = new ColorSensorSubsystem();
-        this.m_simpleAuto = new DrivingTeleopCommand(m_robotDrive, joystick, m_colorSubsystem);
+        this.arduinoSubsystem = new ArduinoSubsystem();
+        this.m_simpleAuto = new DrivingTeleopCommand(m_robotDrive, joystick, m_colorSubsystem, arduinoSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
         m_robotDrive.setDefaultCommand(m_simpleAuto);

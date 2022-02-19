@@ -1,24 +1,23 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ColorSensorSubsystem extends SubsystemBase {
-    private final I2C colorSensor = new I2C(Port.kOnboard, 4);
+public class ArduinoSubsystem extends SubsystemBase {
+    private SerialPort arduino;
 
     private static final int MAX_BYTES = 32;
 
-    public ColorSensorSubsystem() {
-        // How to initialize for later: Use an IC2 port: I2cPort.kOnboard
-        // https://github.com/REVrobotics/Color-Sensor-v3-Examples/blob/master/Java/Read%20RGB%20Values/src/main/java/frc/robot/Robot.java
-        // https://www.revrobotics.com/rev-31-1557/ Color sensor page
-    }
+    public ArduinoSubsystem() {
+        try {
+            this.arduino = new SerialPort(9600, SerialPort.Port.kUSB1);
+        } catch (Exception e) {
+            DriverStation.reportError("Arduino could not connect: ", e.getStackTrace());
+        }
 
-    public I2C getColor() {
-        return colorSensor;
     }
 
     public void write(String input){//writes to the arduino
@@ -27,8 +26,7 @@ public class ColorSensorSubsystem extends SubsystemBase {
         for (int i = 0; i < CharArray.length; i++) {//writes each byte to the arduino
             WriteData[i] = (byte) CharArray[i];//adds the char elements to the byte array
         }
-        colorSensor.transaction(WriteData, WriteData.length, null, 0);//sends each byte to arduino
-
+        //arduino.transaction(WriteData, WriteData.length, null, 0);//sends each byte to arduino
     }
 
 /*
@@ -51,12 +49,12 @@ public class ColorSensorSubsystem extends SubsystemBase {
 */
 
     public String read(){//function to read the data from arduino
-        byte[] data = new byte[MAX_BYTES];//create a byte array to hold the incoming data
-        colorSensor.read(4, MAX_BYTES, data);//use address 4 on i2c and store it in data
-        String output = new String(data);//create a string from the byte array
-        int[] information = new int[]{1, 3, 65,2,5,2,8,3,8,876,4,3,2,46,7,89,876543,2,22,34,43,};
+        //byte[] data = new byte[MAX_BYTES];//create a byte array to hold the incoming data
+        //arduino.read(4, MAX_BYTES, data);//use address 4 on i2c and store it in data
+        //String output = new String(data);//create a string from the byte array
+        //int[] information = new int[]{1, 3, 65,2,5,2,8,3,8,876,4,3,2,46,7,89,876543,2,22,34,43,};
 
-        return output;
+        return "";//return output;
 /*        int pt = output.indexOf((char)255);
         return (String) output.subSequence(0, Math.max(pt, 0));//im not sure what these last two lines do*/
         //sorry :(

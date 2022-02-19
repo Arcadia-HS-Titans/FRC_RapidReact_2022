@@ -2,10 +2,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
+
+import java.util.Arrays;
 
 /**
  * https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html#simple-command-example
@@ -14,14 +19,17 @@ import frc.robot.subsystems.DrivingSubsystem;
 public class DrivingTeleopCommand extends CommandBase {
     private final DrivingSubsystem exampleSubsystem;
     private final ColorSensorSubsystem colorSensorSubSystem;
+    private final ArduinoSubsystem arduinoSubsystem;
     private final Joystick joystick;
 
-    public DrivingTeleopCommand(DrivingSubsystem exampleSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem) {
+    public DrivingTeleopCommand(DrivingSubsystem exampleSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem, ArduinoSubsystem arduinoSubsystem) {
         this.exampleSubsystem = exampleSubsystem;
         this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
+        this.arduinoSubsystem = arduinoSubsystem;
         addRequirements(exampleSubsystem);
         addRequirements(colorSensorSubSystem);
+        addRequirements(arduinoSubsystem);
     }
 
     /**
@@ -47,10 +55,13 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
+        //String result = colorSensorSubSystem.read();
+        String result = arduinoSubsystem.read();
+        if(!result.equals("") && !result.equals(" "))
+            DriverStation.reportWarning("THIS IS THE RESULT: " + result, false);
         exampleSubsystem.arcadeDrive(
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
-        DriverStation.reportWarning(colorSensorSubSystem.getColor().red + " " + colorSensorSubSystem.getColor().blue + " " + colorSensorSubSystem.getColor().green, false);
     }
 }
