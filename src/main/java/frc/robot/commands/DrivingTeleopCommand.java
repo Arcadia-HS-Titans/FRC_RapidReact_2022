@@ -7,6 +7,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
+import frc.robot.subsystems.EncoderSubsystem;
 
 /**
  * https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html#simple-command-example
@@ -17,6 +18,7 @@ public class DrivingTeleopCommand extends CommandBase {
     private final ColorSensorSubsystem colorSensorSubSystem;
     private final ArduinoSubsystem arduinoSubsystem;
     private final Joystick joystick;
+    private final EncoderSubsystem encoderSubsystem;
 
     public DrivingTeleopCommand(
             DrivingSubsystem exampleSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem,
@@ -25,6 +27,7 @@ public class DrivingTeleopCommand extends CommandBase {
         this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         this.arduinoSubsystem = arduinoSubsystem;
+        this.encoderSubsystem = encoderSubsystem;
         addRequirements(exampleSubsystem);
         addRequirements(colorSensorSubSystem);
         addRequirements(arduinoSubsystem);
