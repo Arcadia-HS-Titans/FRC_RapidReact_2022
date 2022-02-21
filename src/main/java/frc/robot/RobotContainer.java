@@ -12,6 +12,7 @@ import frc.robot.commands.DrivingTeleopCommand;
 import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
+import frc.robot.subsystems.EncoderSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,13 +22,13 @@ import frc.robot.subsystems.DrivingSubsystem;
  */
 public class RobotContainer {
     // The robot's subsystems
-    private final DrivingSubsystem m_robotDrive;
-    private final ArduinoSubsystem arduinoSubsystem;
-    private final ColorSensorSubsystem m_colorSubsystem;
+    private final DrivingSubsystem robotDrive; // 4 PWM motors
+    private final ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
+    private final ColorSensorSubsystem colorSubsystem; // I2C port on RIO
+    private final EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
 
+    // Devices
     public final Joystick joystick;
-
-    // The autonomous routines
 
     // A simple auto routine that drives forward a specified distance, and then stops.
     private final Command m_simpleAuto;
@@ -39,13 +40,14 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         this.joystick = new Joystick(0);
-        this.m_robotDrive = new DrivingSubsystem();
-        this.m_colorSubsystem = new ColorSensorSubsystem();
+        this.robotDrive = new DrivingSubsystem();
+        this.colorSubsystem = new ColorSensorSubsystem();
         this.arduinoSubsystem = new ArduinoSubsystem();
-        this.m_simpleAuto = new DrivingTeleopCommand(m_robotDrive, joystick, m_colorSubsystem, arduinoSubsystem);
+        this.encoderSubsystem = new EncoderSubsystem();
+        this.m_simpleAuto = new DrivingTeleopCommand(robotDrive, joystick, colorSubsystem, arduinoSubsystem, encoderSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
-        m_robotDrive.setDefaultCommand(m_simpleAuto);
+        robotDrive.setDefaultCommand(m_simpleAuto);
 
         // Add commands to the autonomous command chooser
         m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);

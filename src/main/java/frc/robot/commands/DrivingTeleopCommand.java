@@ -2,15 +2,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
-
-import java.util.Arrays;
 
 /**
  * https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html#simple-command-example
@@ -22,7 +18,9 @@ public class DrivingTeleopCommand extends CommandBase {
     private final ArduinoSubsystem arduinoSubsystem;
     private final Joystick joystick;
 
-    public DrivingTeleopCommand(DrivingSubsystem exampleSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem, ArduinoSubsystem arduinoSubsystem) {
+    public DrivingTeleopCommand(
+            DrivingSubsystem exampleSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem,
+            ArduinoSubsystem arduinoSubsystem, EncoderSubsystem encoderSubsystem) {
         this.exampleSubsystem = exampleSubsystem;
         this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
@@ -30,6 +28,7 @@ public class DrivingTeleopCommand extends CommandBase {
         addRequirements(exampleSubsystem);
         addRequirements(colorSensorSubSystem);
         addRequirements(arduinoSubsystem);
+        addRequirements(encoderSubsystem);
     }
 
     /**
@@ -55,9 +54,13 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
-        String result = arduinoSubsystem.read();
-        if(!result.equals("") && !result.equals(" "))
-            DriverStation.reportWarning("THIS IS THE RESULT: " + result, false);
+        // Arduino and Pixy recording
+        String pixyData = arduinoSubsystem.read();
+        if(!pixyData.equals("")) //If we've sent data
+            DriverStation.reportWarning(pixyData, false);
+        // Encoder recording
+        DriverStation.reportWarning(String.valueOf(encoderSubsystem.getLeftEncoder().getDirection()),false);
+        // Joystick driving
         exampleSubsystem.arcadeDrive(
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
