@@ -32,7 +32,7 @@ void loop(){
       //broken up into multiple, smaller, objects
   }
   if(!blocks){
-    piOutput = "STOPPACKETSENDING"; //if no blocks tell roborio there are none
+    piOutput = "EOP"; //if no blocks tell roborio there are none
   }else{
     piOutput = String(pixy.ccc.blocks[biggest].m_x / 319.0);  //turns into a percent of the screen
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later

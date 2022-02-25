@@ -18,7 +18,8 @@ public class ArduinoSubsystem extends SubsystemBase {
     }
 
     private StringBuilder stringBuilder = new StringBuilder("");
-    private final String packetStop = "STOPPACKETSENDING"; // TODO: Change this later to something like EOP, end of packet
+    private static final String packetStop = "EOP"; // End Of Packet
+
     public String read() {
         // Get input from serial line and add to StringBuilder
         String read = arduino.readString();
@@ -27,8 +28,7 @@ public class ArduinoSubsystem extends SubsystemBase {
         int index = stringBuilder.indexOf(packetStop);
         if(index == -1)
             return ""; // We're still sending information, so keep on appending and return nothing
-        // The 17 is amount of characters STOPPACKETSENDING
-        String result = stringBuilder.substring(0, index+packetStop.length());
+        String result = stringBuilder.substring(0, index);
         // Start the stringbuilder from where it left off
         stringBuilder = new StringBuilder(stringBuilder.substring(index+packetStop.length()));
         return result;

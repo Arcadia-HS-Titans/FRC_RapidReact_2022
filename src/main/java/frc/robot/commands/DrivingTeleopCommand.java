@@ -62,7 +62,7 @@ public class DrivingTeleopCommand extends CommandBase {
         if(!pixyData.equals("")) //If we've sent data
             DriverStation.reportWarning(pixyData, false);
         // Encoder recording
-        DriverStation.reportWarning(String.valueOf(encoderSubsystem.getLeftEncoder().getDirection()),false);
+        DriverStation.reportWarning(String.valueOf(encoderSubsystem.getLeftEncoder().getRate()),false);
         // Joystick driving
         exampleSubsystem.arcadeDrive(
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
