@@ -1,3 +1,12 @@
+.body {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+h1 {
+    font-family: Arial, Georgia, 'Times New Roman', Times;
+}
+
 .top {
     background-color: #dbdae0;
     padding-top: 12px;
@@ -5,8 +14,7 @@
 }
 
 #title {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    size: 10px;
+    font-size: 60px;
 }
 
 .content {
@@ -17,16 +25,59 @@
     height: 1000px;
 }
 
-.right {
+.left {
     background-color: #b3b1b1;
+    max-width: 30em;
+    width: 30em;
 }
 
-.left {
+.right {
     background-color: #cecdcf;
+    max-width: 62em;
+    width: 62em;
 }
 
 .bottom {
     margin-top: 12px;
     background-color: #d6cece;
     height: 250px;
+}
+
+.auto_grid {
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.teleop_grid {
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.component {
+    width: 150px;
+    height: 50px;
+    margin: 12px;
+}
+
+.animateInRight {
+    position: relative;
+    animation-name: moveRightToLeft;
+    animation-duration: 2s;
+    text-align: center;
+}
+  
+@keyframes moveRightToLeft {
+  from {right: -500px;}
+  to {right: 0;}
+}
+
+@keyframes spinVertical {
+     from {transform: rotateX(0);}
+     to {transform: rotateX(-360deg);}
+}
+
+@keyframes rotate{
+   0%{transform: rotate(0deg);}
+   50%{ transform: rotate(180deg);}
+   100%{transform: rotate(360deg);}
 }

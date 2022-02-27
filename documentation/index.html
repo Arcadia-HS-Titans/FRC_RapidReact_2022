@@ -7,18 +7,28 @@
     </head>
     <body class = "body">
         <div class="top">
-            <h1 id="title">Arcadia Robotics Rapid React</h1>
+            <h1 id="title" class="animateInRight">Arcadia Robotics Rapid React</h1>
         </div>
         <div class = "content">
-            <div class = "right">
-                <p> </p>
-            </div>
             <div class = "left">
-                <p> </p>
+                <h1>Autonomous</h1>
+                <div class = "auto_grid">
+                    <button class = "component" onclick = "sensor1()">Sensor 1</button>
+                    <button class = "component" onclick = "sensor2()">Sensor 2</button>
+                </div>
+                <h1>Teleop</h1>
+                <div class = "teleop_grid">
+                    <button class = "component" onclick = "sensor3()">Sensor 3</button>
+                    <button class = "component" onclick = "sensor4()">Sensor 4</button>
+                </div>
+            </div>
+            <div class = "right" id = "info">
             </div>
         </div>
         <div class = "bottom">
-            <p> </p>
+            <h1>State Machine (Image)</h1>
         </div>
+        <!-- Stays at bottom -->
+        <script src="code.js"></script>
     </body>
 </html>
