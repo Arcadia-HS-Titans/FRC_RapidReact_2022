@@ -1,3 +1,32 @@
-.body {
+.top {
+    background-color: #dbdae0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
 
+#title {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    size: 10px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding-top: 12px;
+    column-gap: 12px;
+    height: 1000px;
+}
+
+.right {
+    background-color: #b3b1b1;
+}
+
+.left {
+    background-color: #cecdcf;
+}
+
+.bottom {
+    margin-top: 12px;
+    background-color: #d6cece;
+    height: 250px;
 }
