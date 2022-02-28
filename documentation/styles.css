@@ -9,8 +9,8 @@ h1 {
 
 .top {
     background-color: #dbdae0;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 #title {
@@ -22,7 +22,7 @@ h1 {
     grid-template-columns: auto auto;
     padding-top: 12px;
     column-gap: 12px;
-    height: 1000px;
+    height: 32em;
 }
 
 .left {
@@ -33,8 +33,8 @@ h1 {
 
 .right {
     background-color: #cecdcf;
-    max-width: 62em;
-    width: 62em;
+    max-width: 61.25em;
+    width: 61.25em;
 }
 
 .bottom {
@@ -45,18 +45,27 @@ h1 {
 
 .auto_grid {
     display: grid;
-    grid-template-rows: auto;
+    grid-template-columns: auto auto;
 }
 
 .teleop_grid {
     display: grid;
-    grid-template-rows: auto;
+    grid-template-columns: auto auto;
 }
 
 .component {
-    width: 150px;
+    width: 200px;
     height: 50px;
     margin: 12px;
+    color: white;
+    background-color: rgb(49, 46, 46);
+    border-radius: 12px;
+}
+
+.component:hover {
+    width: 220px;
+    height: 55px;
+    background-color: rgb(65, 62, 62);
 }
 
 .animateInRight {
@@ -64,6 +73,22 @@ h1 {
     animation-name: moveRightToLeft;
     animation-duration: 2s;
     text-align: center;
+}
+
+.rotateAround {
+    position: relative;
+    animation-name: rotate;
+    animation-duration: 2s;
+    text-align: center;
+}
+
+.border {
+    border-style: solid;
+    border-width: medium;
+}
+
+.topic {
+    padding-left: 12px;
 }
   
 @keyframes moveRightToLeft {

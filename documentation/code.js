@@ -1,15 +1,46 @@
-function sensor1() {
-    document.getElementById("info").innerHTML = "Sensor 1 explanation"
+function createTitle(name) {
+    return "<h1 class=\"topic animateInRight\">" + name + "</h1>";
 }
 
-function sensor2() {
-    document.getElementById("info").innerHTML = "Sensor 2 explanation fwefefwf"
+//Component functions
+//Auto
+function pixycam_auto() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Pixycam Auto:");
 }
 
-function sensor3() {
-    document.getElementById("info").innerHTML = "Sensor 3 explanation ff34"
+function color_auto() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Color Sensor Auto:");
 }
 
-function sensor4() {
-    document.getElementById("info").innerHTML = "Sensor 4 explanation 434g43g45g 54g 54ggh54h5"
+function encoder_auto() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Encoder Auto:");
+}
+
+function accel_auto() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Accelerometer Auto:");
+}
+
+//Teleop
+function pixycam_teleop() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Pixycam Teleop:");
+}
+
+function color_teleop() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Color Sensor Teleop:");
+}
+
+function encoder_teleop() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Encoder Teleop:");
+}
+
+function accel_teleop() {
+    document.getElementById("info").innerHTML = 
+        createTitle("Accelerometer Teleop:");
 }

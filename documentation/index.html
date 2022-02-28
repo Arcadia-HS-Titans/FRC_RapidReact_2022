@@ -2,31 +2,38 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Rapid React</title>
+        <title>Team 3187 Rapid React</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body class = "body">
-        <div class="top">
-            <h1 id="title" class="animateInRight">Arcadia Robotics Rapid React</h1>
+        <div class="top border">
+            <h1 id="title" class="animateInRight">
+                Team 3187 Rapid React
+                <img class = "rotateAround" src="logo.png" width="64px" id = "logo" alt="Logo">
+            </h1>
         </div>
         <div class = "content">
-            <div class = "left">
-                <h1>Autonomous</h1>
+            <div class = "left border">
+                <h1 class = "topic">Autonomous</h1>
                 <div class = "auto_grid">
-                    <button class = "component" onclick = "sensor1()">Sensor 1</button>
-                    <button class = "component" onclick = "sensor2()">Sensor 2</button>
+                    <button class = "component" onclick = "pixycam_auto()">Pixycam</button>
+                    <button class = "component" onclick = "color_auto()">Color Sensor</button>
+                    <button class = "component" onclick = "encoder_auto()">Encoder</button>
+                    <button class = "component" onclick = "accel_auto()">Accelerometer</button>
                 </div>
-                <h1>Teleop</h1>
+                <h1 class = "topic">Teleop</h1>
                 <div class = "teleop_grid">
-                    <button class = "component" onclick = "sensor3()">Sensor 3</button>
-                    <button class = "component" onclick = "sensor4()">Sensor 4</button>
+                    <button class = "component" onclick = "pixycam_teleop()">Pixycam</button>
+                    <button class = "component" onclick = "color_teleop()">Color Sensor</button>
+                    <button class = "component" onclick = "encoder_teleop()">Encoder</button>
+                    <button class = "component" onclick = "accel_teleop()">Accelerometer</button>
                 </div>
             </div>
-            <div class = "right" id = "info">
+            <div class = "right border" id = "info">
             </div>
         </div>
-        <div class = "bottom">
-            <h1>State Machine (Image)</h1>
+        <div class = "bottom border">
+            <h1 class = "topic">TODO: State Machine (Image)</h1>
         </div>
         <!-- Stays at bottom -->
         <script src="code.js"></script>
