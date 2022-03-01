@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArduinoSubsystem;
@@ -61,8 +62,13 @@ public class DrivingTeleopCommand extends CommandBase {
         String pixyData = arduinoSubsystem.read();
         if(!pixyData.equals("")) //If we've sent data
             DriverStation.reportWarning(pixyData, false);
+/*        Color color = colorSensorSubSystem.getColor();
+        if(color.red > color.blue)
+            DriverStation.reportWarning("Red", false);
+        else
+            DriverStation.reportWarning("Blue", false);*/
         // Encoder recording
-        DriverStation.reportWarning(String.valueOf(encoderSubsystem.getLeftEncoder().getRate()),false);
+        //DriverStation.reportWarning(String.valueOf(encoderSubsystem.getLeftEncoder().getDistancePerPulse()),false);
         // Joystick driving
         exampleSubsystem.arcadeDrive(
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
