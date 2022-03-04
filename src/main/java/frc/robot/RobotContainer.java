@@ -7,9 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DrivingTeleopCommand;
 import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
@@ -24,7 +24,7 @@ import frc.robot.subsystems.EncoderSubsystem;
  */
 public class RobotContainer {
     // The robot's subsystems
-    private final DrivingSubsystem robotDrive; // 4 PWM motors
+    private final DrivingSubsystem drivingSubsystem; // 4 PWM motors
     private final ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
     private final ColorSensorSubsystem colorSubsystem; // I2C port on RIO
     private final EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
@@ -32,8 +32,9 @@ public class RobotContainer {
     // Devices
     public final Joystick joystick;
 
-    // A simple auto routine that drives forward a specified distance, and then stops.
-    private final Command m_simpleAuto;
+    // The main commands of the robot
+    private final Command teleopCommand;
+    private final Command autoCommand;
 
 
     // A chooser for autonomous commands
@@ -43,20 +44,23 @@ public class RobotContainer {
     public RobotContainer() {
         Shuffleboard.addEventMarker("A", "a", EventImportance.kNormal);
         this.joystick = new Joystick(0);
-        this.robotDrive = new DrivingSubsystem();
+        this.drivingSubsystem = new DrivingSubsystem();
         this.colorSubsystem = new ColorSensorSubsystem();
         this.arduinoSubsystem = new ArduinoSubsystem();
         this.encoderSubsystem = new EncoderSubsystem();
-        this.m_simpleAuto = new DrivingTeleopCommand(robotDrive, joystick, colorSubsystem, arduinoSubsystem, encoderSubsystem);
+        this.teleopCommand = new DrivingTeleopCommand(drivingSubsystem, joystick, colorSubsystem, arduinoSubsystem, encoderSubsystem);
+        this.autoCommand = new AutoCommand(arduinoSubsystem, colorSubsystem, drivingSubsystem, encoderSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
-        robotDrive.setDefaultCommand(m_simpleAuto);
+        drivingSubsystem.setDefaultCommand(teleopCommand);
 
         // Add commands to the autonomous command chooser
-        m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
+        m_chooser.setDefaultOption("TeleOperated", teleopCommand);
+        m_chooser.addOption("Autonomous", autoCommand);
 
         // Put the chooser on the dashboard
         Shuffleboard.getTab("Autonomous").add(m_chooser);
+        Shuffleboard.getTab("TeleOperated").add(m_chooser);
     }
 
     /**
@@ -65,6 +69,10 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return m_chooser.getSelected();
+        return autoCommand;
+    }
+
+    public Command getTeleopCommand() {
+        return teleopCommand;
     }
 }
