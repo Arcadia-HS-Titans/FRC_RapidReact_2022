@@ -2,6 +2,9 @@
 #include <Pixy2.h>
 //this is provided by the pixy creators, you will have to go to the arduino sketch editor,
 //click sketch, include library, and import the pixy .zip files
+#include <Adafruit_NeoPixel.h>
+const int neoPixelPin = 7;  // control pin
+const int pixelCount = 24;    // number of pixels
 
 
 String piOutput = "none";//string to be sent to the robot
@@ -9,9 +12,21 @@ String piOutput = "none";//string to be sent to the robot
 String input = "blank";   //string received from the robot
 Pixy2 pixy;
 
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(pixelCount, neoPixelPin, NEO_GRB + NEO_KHZ800);
+
 void setup(){
   Serial.begin(9600);
   pixy.init();
+  strip.begin();    // initialize pixel strip
+  strip.clear();    // turn all LEDs off
+
+    // loop over all the pixels:
+    for (int pixel = 0; pixel < pixelCount; pixel++) {
+      strip.setPixelColor(pixel, 0, 255, 0);
+      delay(50);
+      strip.show();    // refresh the strip
+    }
+    strip.clear();
 }
 
 void loop(){
