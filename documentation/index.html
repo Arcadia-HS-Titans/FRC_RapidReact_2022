@@ -9,31 +9,44 @@
         <div class="top border">
             <h1 id="title" class="animateInRight">
                 Team 3187 Rapid React
-                <img class = "rotateAround" src="logo.png" width="64px" id = "logo" alt="Logo">
+                <img class = "rotateAround" src="assets/logo.png" width="64px" id = "logo" alt="Logo">
             </h1>
         </div>
         <div class = "content">
             <div class = "left border">
+                <!--<h1 class = "topic">Sensors</h1>
+                <div class = "grid">
+                    <button class = "component" onclick = "pixycam()">Pixycam</button>
+                    <button class = "component" onclick = "color()">Color Sensor</button>
+                    <button class = "component" onclick = "encoder()">Encoder</button>
+                </div>-->
                 <h1 class = "topic">Autonomous</h1>
-                <div class = "auto_grid">
+                <div class = "grid">
                     <button class = "component" onclick = "pixycam_auto()">Pixycam</button>
                     <button class = "component" onclick = "color_auto()">Color Sensor</button>
                     <button class = "component" onclick = "encoder_auto()">Encoder</button>
-                    <button class = "component" onclick = "accel_auto()">Accelerometer</button>
                 </div>
                 <h1 class = "topic">Teleop</h1>
-                <div class = "teleop_grid">
+                <div class = "grid">
                     <button class = "component" onclick = "pixycam_teleop()">Pixycam</button>
                     <button class = "component" onclick = "color_teleop()">Color Sensor</button>
                     <button class = "component" onclick = "encoder_teleop()">Encoder</button>
-                    <button class = "component" onclick = "accel_teleop()">Accelerometer</button>
+                </div>
+                <div id = "logobottomleft">
+                    <img class = "rotateAround" src="assets/logo.png" width="200px" id = "logobottomleft" alt="Logo">
                 </div>
             </div>
             <div class = "right border" id = "info">
+                <h1 class="topic animateInRight">Pixycam Auto:</h1>
+                <div class = "centerImg">
+                    <p class = "explanation animateInRight">The pixycam's role in auto is to track the high goal before firing the pre-loaded ball.</p>
+                    <img src="assets/pixycamauto.png" width="750px" class = "animateInRight" id = "pixycamauto" alt="PixycamAuto">
+                </div>
             </div>
         </div>
         <div class = "bottom border">
-            <h1 class = "topic">TODO: State Machine (Image)</h1>
+            <h1 class = "topic">State Machine:</h1>
+            <img src="assets/statemachine.png" width="1490px" class = "animateInRight" id = "pixycamauto" alt="PixycamAuto">
         </div>
         <!-- Stays at bottom -->
         <script src="code.js"></script>

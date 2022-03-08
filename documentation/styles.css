@@ -17,6 +17,17 @@ h1 {
     font-size: 60px;
 }
 
+#logobottomleft {
+    display: flex;
+    justify-content: center;
+}
+
+.centerImg {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+}
+
 .content {
     display: grid;
     grid-template-columns: auto auto;
@@ -40,21 +51,19 @@ h1 {
 .bottom {
     margin-top: 12px;
     background-color: #d6cece;
-    height: 250px;
 }
 
-.auto_grid {
-    display: grid;
-    grid-template-columns: auto auto;
+.explanation {
+    font-size: 16px;
 }
 
-.teleop_grid {
+.grid {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
 }
 
 .component {
-    width: 200px;
+    width: 120px;
     height: 50px;
     margin: 12px;
     color: white;
@@ -63,7 +72,7 @@ h1 {
 }
 
 .component:hover {
-    width: 220px;
+    width: 135px;
     height: 55px;
     background-color: rgb(65, 62, 62);
 }
@@ -92,7 +101,7 @@ h1 {
 }
   
 @keyframes moveRightToLeft {
-  from {right: -500px;}
+  from {right: -350px;}
   to {right: 0;}
 }
 
