@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -11,10 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DrivingTeleopCommand;
-import frc.robot.subsystems.ArduinoSubsystem;
-import frc.robot.subsystems.ColorSensorSubsystem;
-import frc.robot.subsystems.DrivingSubsystem;
-import frc.robot.subsystems.EncoderSubsystem;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,6 +27,8 @@ public class RobotContainer {
     private final ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
     private final ColorSensorSubsystem colorSubsystem; // I2C port on RIO
     private final EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
+    private final LimitSwitchSubsystem limitSwitchSubsystem;
+    private final BallShooterSubsystem ballShooterSubsystem;
 
     // Devices
     public final Joystick joystick;
@@ -42,13 +43,21 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+
+        // Starts up a camera
+        CameraServer.startAutomaticCapture();
+
         Shuffleboard.addEventMarker("A", "a", EventImportance.kNormal);
         this.joystick = new Joystick(0);
         this.drivingSubsystem = new DrivingSubsystem();
         this.colorSubsystem = new ColorSensorSubsystem();
         this.arduinoSubsystem = new ArduinoSubsystem();
         this.encoderSubsystem = new EncoderSubsystem();
-        this.teleopCommand = new DrivingTeleopCommand(drivingSubsystem, joystick, colorSubsystem, arduinoSubsystem, encoderSubsystem);
+        this.limitSwitchSubsystem = new LimitSwitchSubsystem();
+        this.ballShooterSubsystem = new BallShooterSubsystem();
+        this.teleopCommand = new DrivingTeleopCommand(
+                drivingSubsystem, joystick, colorSubsystem,
+                arduinoSubsystem, encoderSubsystem, limitSwitchSubsystem, ballShooterSubsystem);
         this.autoCommand = new AutoCommand(arduinoSubsystem, colorSubsystem, drivingSubsystem, encoderSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive

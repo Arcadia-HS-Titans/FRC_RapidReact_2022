@@ -2,37 +2,42 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.ArduinoSubsystem;
-import frc.robot.subsystems.ColorSensorSubsystem;
-import frc.robot.subsystems.DrivingSubsystem;
-import frc.robot.subsystems.EncoderSubsystem;
+import frc.robot.subsystems.*;
 
 /**
  * https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html#simple-command-example
  * https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/hatchbottraditional/commands/DefaultDrive.java
  */
 public class DrivingTeleopCommand extends CommandBase {
-    private final DrivingSubsystem exampleSubsystem;
+
+    private final Joystick joystick;
+
+    private final DrivingSubsystem drivingSubsystem;
     private final ColorSensorSubsystem colorSensorSubSystem;
     private final ArduinoSubsystem arduinoSubsystem;
-    private final Joystick joystick;
     private final EncoderSubsystem encoderSubsystem;
+    private final LimitSwitchSubsystem limitSwitchSubsystem;
+    private final BallShooterSubsystem ballShooterSubsystem;
 
     public DrivingTeleopCommand(
-            DrivingSubsystem exampleSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem,
-            ArduinoSubsystem arduinoSubsystem, EncoderSubsystem encoderSubsystem) {
-        this.exampleSubsystem = exampleSubsystem;
+            DrivingSubsystem drivingSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem,
+            ArduinoSubsystem arduinoSubsystem, EncoderSubsystem encoderSubsystem,
+            LimitSwitchSubsystem limitSwitchSubsystem, BallShooterSubsystem ballShooterSubsystem) {
+        this.drivingSubsystem = drivingSubsystem;
         this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         this.arduinoSubsystem = arduinoSubsystem;
         this.encoderSubsystem = encoderSubsystem;
-        addRequirements(exampleSubsystem);
+        this.limitSwitchSubsystem = limitSwitchSubsystem;
+        this.ballShooterSubsystem = ballShooterSubsystem;
+        addRequirements(drivingSubsystem);
         addRequirements(colorSensorSubSystem);
         addRequirements(arduinoSubsystem);
         addRequirements(encoderSubsystem);
+        addRequirements(limitSwitchSubsystem);
+        addRequirements(ballShooterSubsystem);
     }
 
     /**
@@ -58,19 +63,15 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
+        //ballShooterSubsystem.fire(1);
         // Arduino and Pixy recording
         String pixyData = arduinoSubsystem.read();
         if(!pixyData.equals("")) //If we've sent data
             DriverStation.reportWarning(pixyData, false);
-/*        Color color = colorSensorSubSystem.getColor();
-        if(color.red > color.blue)
-            DriverStation.reportWarning("Red", false);
-        else
-            DriverStation.reportWarning("Blue", false);*/
-        // Encoder recording
-        //DriverStation.reportWarning(String.valueOf(encoderSubsystem.getLeftEncoder().getDistancePerPulse()),false);
-        // Joystick driving
-        exampleSubsystem.arcadeDrive(
+        //TODO: RPM scale seems to be 1.5 ft -> 100 Rotations
+        // 180 Rotations -> 1 Wheel Cycle
+        //DriverStation.reportWarning(String.valueOf(limitSwitchSubsystem.get()), false);
+        drivingSubsystem.arcadeDrive(
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
