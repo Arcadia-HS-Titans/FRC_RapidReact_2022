@@ -2,9 +2,9 @@ package frc.robot;
 
 public class Constants {
     /**------PWM Ports-------*/
-    public static final int PURPLE_MOTOR_PORT = 3;
-    public static final int BROWN_MOTOR_PORT = 2;
-    public static final int YELLOW_MOTOR_PORT = 0;
+    public static final int GREEN_MOTOR_PORT = 3;
+    public static final int YELLOW_MOTOR_PORT = 2;
+    public static final int RED_MOTOR_PORT = 0;
     public static final int ORANGE_MOTOR_PORT = 1;
 
     /**------DIO Ports-------*/

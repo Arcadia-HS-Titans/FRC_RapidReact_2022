@@ -10,11 +10,11 @@ import frc.robot.Constants;
 public class DrivingSubsystem extends SubsystemBase {
 
     // Left motors
-    private final PWMSparkMax GREEN_MOTOR = new PWMSparkMax(Constants.PURPLE_MOTOR_PORT);
-    private final PWMSparkMax YELLOW_MOTOR = new PWMSparkMax(Constants.BROWN_MOTOR_PORT);
+    private final PWMSparkMax GREEN_MOTOR = new PWMSparkMax(Constants.GREEN_MOTOR_PORT);
+    private final PWMSparkMax YELLOW_MOTOR = new PWMSparkMax(Constants.YELLOW_MOTOR_PORT);
     MotorController rightController = new MotorControllerGroup(GREEN_MOTOR, YELLOW_MOTOR);
     //Right motors
-    private final PWMSparkMax RED_MOTOR = new PWMSparkMax(Constants.YELLOW_MOTOR_PORT);
+    private final PWMSparkMax RED_MOTOR = new PWMSparkMax(Constants.RED_MOTOR_PORT);
     private final PWMSparkMax ORANGE_MOTOR = new PWMSparkMax(Constants.ORANGE_MOTOR_PORT);
     MotorController leftController = new MotorControllerGroup(RED_MOTOR, ORANGE_MOTOR);
 

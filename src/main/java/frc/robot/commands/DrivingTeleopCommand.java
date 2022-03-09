@@ -75,5 +75,7 @@ public class DrivingTeleopCommand extends CommandBase {
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
+        // Listen for gamepad inputs and shoot ball depending on state/start intake
+        // Use the mechanical switch and Color Sensor to detect color of a ball
     }
 }
