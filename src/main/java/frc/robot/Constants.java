@@ -7,6 +7,10 @@ public class Constants {
     public static final int RED_MOTOR_PORT = 0;
     public static final int ORANGE_MOTOR_PORT = 1;
 
+    public static final int BOTTOM_INTAKE_PORT = 4;
+    public static final int TOP_INTAKE_PORT = 5;
+
+
     /**------DIO Ports-------*/
     public static final int[] LEFT_ENCODER_PORTS = {0, 1};
     public static final int[] RIGHT_ENCODER_PORTS = {2, 3};
