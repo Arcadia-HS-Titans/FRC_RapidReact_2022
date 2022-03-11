@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
@@ -37,6 +38,9 @@ public class AutoCommand extends CommandBase {
     @Override
     public void initialize() {
         rpm = 0;
+        timer = new Timer();
+        timer.reset();;
+        timer.start();
     }
 
     /**
@@ -54,10 +58,15 @@ public class AutoCommand extends CommandBase {
         return false;
     }
 
+    private Timer timer;
+
     @Override
     public void execute() {
         intakeSubsystem.setSpeed(1);
-
+        drivingSubsystem.arcadeDrive(0f, -1f);
+        if(timer.get() < 1) {
+            //TODO: DRIVE
+        }
 /*        rpm += encoderSubsystem.getLeftEncoder().getDistancePerPulse();
         if(rpm < 150) {
             DriverStation.reportWarning(String.valueOf(rpm), false);
