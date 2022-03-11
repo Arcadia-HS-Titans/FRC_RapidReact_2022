@@ -23,11 +23,11 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     // The robot's subsystems
     private final DrivingSubsystem drivingSubsystem; // 4 PWM motors
-    private final ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
-    private final ColorSensorSubsystem colorSubsystem; // I2C port on RIO
-    private final EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
+    private ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
+    //private ColorSensorSubsystem colorSubsystem; // I2C port on RIO
+    private EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
     private final LimitSwitchSubsystem limitSwitchSubsystem;
-    private final BallShooterSubsystem ballShooterSubsystem;
+    //private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
 
     // Devices
@@ -50,16 +50,15 @@ public class RobotContainer {
         Shuffleboard.addEventMarker("A", "a", EventImportance.kNormal);
         this.joystick = new Joystick(0);
         this.drivingSubsystem = new DrivingSubsystem();
-        this.colorSubsystem = new ColorSensorSubsystem();
-        this.arduinoSubsystem = new ArduinoSubsystem();
-        this.encoderSubsystem = new EncoderSubsystem();
+        //this.colorSubsystem = new ColorSensorSubsystem();
+        //this.arduinoSubsystem = new ArduinoSubsystem();
+        //this.encoderSubsystem = new EncoderSubsystem();
         this.limitSwitchSubsystem = new LimitSwitchSubsystem();
-        this.ballShooterSubsystem = new BallShooterSubsystem();
+        //this.ballShooterSubsystem = new BallShooterSubsystem();
         this.intakeSubsystem = new IntakeSubsystem();
         this.teleopCommand = new DrivingTeleopCommand(
-                drivingSubsystem, joystick, /*colorSubsystem,*/
-                arduinoSubsystem, /*encoderSubsystem,*/ /*limitSwitchSubsystem,*/ ballShooterSubsystem, intakeSubsystem);
-        this.autoCommand = new AutoCommand(arduinoSubsystem, /*colorSubsystem,*/ drivingSubsystem /*encoderSubsystem*/, ballShooterSubsystem, intakeSubsystem);
+                drivingSubsystem, joystick, /*colorSubsystem,*/ /*encoderSubsystem,*/ /*limitSwitchSubsystem,*/ /*ballShooterSubsystem*/ intakeSubsystem);
+        this.autoCommand = new AutoCommand( /*colorSubsystem,*/ drivingSubsystem /*encoderSubsystem*/, /*ballShooterSubsystem*/ intakeSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
         drivingSubsystem.setDefaultCommand(teleopCommand);

@@ -16,30 +16,30 @@ public class DrivingTeleopCommand extends CommandBase {
 
     private final DrivingSubsystem drivingSubsystem;
     //private final ColorSensorSubsystem colorSensorSubSystem;
-    private final ArduinoSubsystem arduinoSubsystem;
+    //private final ArduinoSubsystem arduinoSubsystem;
     //private final EncoderSubsystem encoderSubsystem;
     //private final LimitSwitchSubsystem limitSwitchSubsystem;
-    private final BallShooterSubsystem ballShooterSubsystem;
+    //private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
 
     public DrivingTeleopCommand(
-            DrivingSubsystem drivingSubsystem, Joystick joystick, /*ColorSensorSubsystem colorSensorSubSystem,*/
-            ArduinoSubsystem arduinoSubsystem, /*EncoderSubsystem encoderSubsystem,*/
-            /*LimitSwitchSubsystem limitSwitchSubsystem,*/ BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
+            DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
+            /*ArduinoSubsystem arduinoSubsystem*/, /*EncoderSubsystem encoderSubsystem,*/
+            /*LimitSwitchSubsystem limitSwitchSubsystem,*/ /*BallShooterSubsystem ballShooterSubsystem,*/ IntakeSubsystem intakeSubsystem) {
         this.drivingSubsystem = drivingSubsystem;
         //this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
-        this.arduinoSubsystem = arduinoSubsystem;
+        //this.arduinoSubsystem = arduinoSubsystem;
         //this.encoderSubsystem = encoderSubsystem;
         //this.limitSwitchSubsystem = limitSwitchSubsystem;
-        this.ballShooterSubsystem = ballShooterSubsystem;
+        //this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         //addRequirements(colorSensorSubSystem);
-        addRequirements(arduinoSubsystem);
+        //addRequirements(arduinoSubsystem);
         //addRequirements(encoderSubsystem);
         //addRequirements(limitSwitchSubsystem);
-        addRequirements(ballShooterSubsystem);
+        //addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }
 
@@ -77,26 +77,30 @@ public class DrivingTeleopCommand extends CommandBase {
         // 180 Rotations -> 1 Wheel Cycle
         //DriverStation.reportWarning(String.valueOf(limitSwitchSubsystem.get()), false);
         drivingSubsystem.arcadeDrive(
-                joystick.getX() * Constants.MOTOR_POWER_PERCENT,
+                joystick.getZ() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
         if(joystick.getRawButton(1)) {
             //B on the logitech controller is pressed, taken from GLFW
             //TODO: Shoot
+/*
             ballShooterSubsystem.fire(0.5);
+*/
         }
-        if(joystick.getRawAxis(4) > 0.5) {
+        if(joystick.getRawAxis(4) > 0) {
             // The left trigger is pressed on the logitech gamepad, taken from GLFW again
             //TODO: Intake
-            intakeSubsystem.setSpeed(1);
+            intakeSubsystem.enterBall(1);
+        } else if(joystick.getRawAxis(5) > 0) {
+            intakeSubsystem.enterBall(-1);
         }
 
-        if(joystick.getRawAxis(0) > .1) {
+/*        if(joystick.getRawAxis(0) > .1) {
             ballShooterSubsystem.turnSusan(.7);
         } else if(joystick.getRawAxis(0) < -.1) {
             ballShooterSubsystem.turnSusan(-.7);
 
-        }
+        }*/
         // Listen for gamepad inputs and shoot ball depending on state/start intake
         // Use the mechanical switch and Color Sensor to detect color of a ball
     }

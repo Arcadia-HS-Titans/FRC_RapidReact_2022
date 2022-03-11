@@ -15,20 +15,20 @@ public class AutoCommand extends CommandBase {
 
     private int rpm = 0; // Counts of encoder pulses
 
-    public AutoCommand(ArduinoSubsystem arduinoSubsystem, /*ColorSensorSubsystem colorSensorSubsystem,*/
+    public AutoCommand(/*ArduinoSubsystem arduinoSubsystem*/ /*ColorSensorSubsystem colorSensorSubsystem,*/
                        DrivingSubsystem drivingSubsystem, /*EncoderSubsystem encoderSubsystem,*/
-                       BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
-        this.arduinoSubsystem = arduinoSubsystem;
-        this.colorSensorSubsystem = colorSensorSubsystem;
+                       /*BallShooterSubsystem ballShooterSubsystem,*/ IntakeSubsystem intakeSubsystem) {
+        //this.arduinoSubsystem = arduinoSubsystem;
+        //this.colorSensorSubsystem = colorSensorSubsystem;
         this.drivingSubsystem = drivingSubsystem;
-        this.encoderSubsystem = encoderSubsystem;
-        this.ballShooterSubsystem = ballShooterSubsystem;
+        //this.encoderSubsystem = encoderSubsystem;
+        //this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
-        addRequirements(colorSensorSubsystem);
-        addRequirements(arduinoSubsystem);
-        addRequirements(encoderSubsystem);
-        addRequirements(ballShooterSubsystem);
+        //addRequirements(colorSensorSubsystem);
+        //addRequirements(arduinoSubsystem);
+        //addRequirements(encoderSubsystem);
+        //addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }
 
@@ -63,9 +63,8 @@ public class AutoCommand extends CommandBase {
     @Override
     public void execute() {
         intakeSubsystem.setSpeed(1);
-        drivingSubsystem.arcadeDrive(0f, -1f);
-        if(timer.get() < 1) {
-            //TODO: DRIVE
+        if(timer.get() < 1.d) {
+            drivingSubsystem.arcadeDrive(0f, -.5f);
         }
 /*        rpm += encoderSubsystem.getLeftEncoder().getDistancePerPulse();
         if(rpm < 150) {
@@ -77,7 +76,7 @@ public class AutoCommand extends CommandBase {
         // No more encoders for here
 
         // TODO: Check ball and shoot mechanism
-        ballShooterSubsystem.fire(0.7);
+        //ballShooterSubsystem.fire(0.7);
 
     }
 }
