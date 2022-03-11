@@ -15,28 +15,30 @@ public class DrivingTeleopCommand extends CommandBase {
     private final Joystick joystick;
 
     private final DrivingSubsystem drivingSubsystem;
-    private final ColorSensorSubsystem colorSensorSubSystem;
+    //private final ColorSensorSubsystem colorSensorSubSystem;
     private final ArduinoSubsystem arduinoSubsystem;
-    private final EncoderSubsystem encoderSubsystem;
-    private final LimitSwitchSubsystem limitSwitchSubsystem;
+    //private final EncoderSubsystem encoderSubsystem;
+    //private final LimitSwitchSubsystem limitSwitchSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
+    private final IntakeSubsystem intakeSubsystem;
 
     public DrivingTeleopCommand(
-            DrivingSubsystem drivingSubsystem, Joystick joystick, ColorSensorSubsystem colorSensorSubSystem,
-            ArduinoSubsystem arduinoSubsystem, EncoderSubsystem encoderSubsystem,
-            LimitSwitchSubsystem limitSwitchSubsystem, BallShooterSubsystem ballShooterSubsystem) {
+            DrivingSubsystem drivingSubsystem, Joystick joystick, /*ColorSensorSubsystem colorSensorSubSystem,*/
+            ArduinoSubsystem arduinoSubsystem, /*EncoderSubsystem encoderSubsystem,*/
+            /*LimitSwitchSubsystem limitSwitchSubsystem,*/ BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.drivingSubsystem = drivingSubsystem;
-        this.colorSensorSubSystem = colorSensorSubSystem;
+        //this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         this.arduinoSubsystem = arduinoSubsystem;
-        this.encoderSubsystem = encoderSubsystem;
-        this.limitSwitchSubsystem = limitSwitchSubsystem;
+        //this.encoderSubsystem = encoderSubsystem;
+        //this.limitSwitchSubsystem = limitSwitchSubsystem;
         this.ballShooterSubsystem = ballShooterSubsystem;
+        this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
-        addRequirements(colorSensorSubSystem);
+        //addRequirements(colorSensorSubSystem);
         addRequirements(arduinoSubsystem);
-        addRequirements(encoderSubsystem);
-        addRequirements(limitSwitchSubsystem);
+        //addRequirements(encoderSubsystem);
+        //addRequirements(limitSwitchSubsystem);
         addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }
