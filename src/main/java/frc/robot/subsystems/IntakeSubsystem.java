@@ -21,5 +21,13 @@ public class IntakeSubsystem extends SubsystemBase {
         topMotor.set(speed);
     }
 
+    public void enterBall(double speed) {
+        bottomMotor.set(speed);
+    }
+
+    public void elevateBall(double speed) {
+        topMotor.set(speed);
+    }
+
 }
 

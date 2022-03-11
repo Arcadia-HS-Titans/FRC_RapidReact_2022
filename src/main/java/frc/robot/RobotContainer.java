@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.AutoCommand;
-import frc.robot.commands.DrivingTeleopCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 /**

@@ -2,29 +2,33 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ArduinoSubsystem;
-import frc.robot.subsystems.ColorSensorSubsystem;
-import frc.robot.subsystems.DrivingSubsystem;
-import frc.robot.subsystems.EncoderSubsystem;
+import frc.robot.subsystems.*;
 
 public class AutoCommand extends CommandBase {
     private ArduinoSubsystem arduinoSubsystem;
     private ColorSensorSubsystem colorSensorSubsystem;
     private DrivingSubsystem drivingSubsystem;
     private EncoderSubsystem encoderSubsystem;
+    private BallShooterSubsystem ballShooterSubsystem;
+    private IntakeSubsystem intakeSubsystem;
 
     private int rpm = 0; // Counts of encoder pulses
 
     public AutoCommand(ArduinoSubsystem arduinoSubsystem, ColorSensorSubsystem colorSensorSubsystem,
-                       DrivingSubsystem drivingSubsystem, EncoderSubsystem encoderSubsystem) {
+                       DrivingSubsystem drivingSubsystem, EncoderSubsystem encoderSubsystem,
+                       BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.arduinoSubsystem = arduinoSubsystem;
         this.colorSensorSubsystem = colorSensorSubsystem;
         this.drivingSubsystem = drivingSubsystem;
         this.encoderSubsystem = encoderSubsystem;
+        this.ballShooterSubsystem = ballShooterSubsystem;
+        this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         addRequirements(colorSensorSubsystem);
         addRequirements(arduinoSubsystem);
         addRequirements(encoderSubsystem);
+        addRequirements(ballShooterSubsystem);
+        addRequirements(intakeSubsystem);
     }
 
     /**
@@ -52,13 +56,19 @@ public class AutoCommand extends CommandBase {
 
     @Override
     public void execute() {
-        rpm += encoderSubsystem.getLeftEncoder().getDistancePerPulse();
+        intakeSubsystem.setSpeed(1);
+
+/*        rpm += encoderSubsystem.getLeftEncoder().getDistancePerPulse();
         if(rpm < 150) {
             DriverStation.reportWarning(String.valueOf(rpm), false);
             drivingSubsystem.arcadeDrive(0, -0.7);
             return;
-        }
+        }*/
+        //TODO: Use the timerm class and move the robot backk manually
+        // No more encoders for here
 
         // TODO: Check ball and shoot mechanism
+        ballShooterSubsystem.fire(0.7);
+
     }
 }

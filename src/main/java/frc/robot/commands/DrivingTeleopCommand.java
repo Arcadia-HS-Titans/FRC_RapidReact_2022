@@ -38,6 +38,7 @@ public class DrivingTeleopCommand extends CommandBase {
         addRequirements(encoderSubsystem);
         addRequirements(limitSwitchSubsystem);
         addRequirements(ballShooterSubsystem);
+        addRequirements(intakeSubsystem);
     }
 
     /**
@@ -65,9 +66,11 @@ public class DrivingTeleopCommand extends CommandBase {
     public void execute() {
         //ballShooterSubsystem.fire(1);
         // Arduino and Pixy recording
+/*
         String pixyData = arduinoSubsystem.read();
         if(!pixyData.equals("")) //If we've sent data
             DriverStation.reportWarning(pixyData, false);
+*/
         //TODO: RPM scale seems to be 1.5 ft -> 100 Rotations
         // 180 Rotations -> 1 Wheel Cycle
         //DriverStation.reportWarning(String.valueOf(limitSwitchSubsystem.get()), false);
@@ -75,6 +78,23 @@ public class DrivingTeleopCommand extends CommandBase {
                 joystick.getX() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
+        if(joystick.getRawButton(1)) {
+            //B on the logitech controller is pressed, taken from GLFW
+            //TODO: Shoot
+            ballShooterSubsystem.fire(0.5);
+        }
+        if(joystick.getRawAxis(4) > 0.5) {
+            // The left trigger is pressed on the logitech gamepad, taken from GLFW again
+            //TODO: Intake
+            intakeSubsystem.setSpeed(1);
+        }
+
+        if(joystick.getRawAxis(0) > .1) {
+            ballShooterSubsystem.turnSusan(.7);
+        } else if(joystick.getRawAxis(0) < -.1) {
+            ballShooterSubsystem.turnSusan(-.7);
+
+        }
         // Listen for gamepad inputs and shoot ball depending on state/start intake
         // Use the mechanical switch and Color Sensor to detect color of a ball
     }

@@ -7,8 +7,9 @@ public class Constants {
     public static final int RED_MOTOR_PORT = 0;
     public static final int ORANGE_MOTOR_PORT = 1;
 
-    public static final int BOTTOM_INTAKE_PORT = 4;
-    public static final int TOP_INTAKE_PORT = 5;
+    public static final int BOTTOM_INTAKE_PORT = 5;
+    public static final int TOP_INTAKE_PORT = 4;
+    public static final int SUSAN_ROTATION_PORT = 6;
 
 
     /**------DIO Ports-------*/
