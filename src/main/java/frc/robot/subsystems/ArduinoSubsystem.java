@@ -23,6 +23,7 @@ public class ArduinoSubsystem extends SubsystemBase {
     public String read() {
         // Get input from serial line and add to StringBuilder
         String read = arduino.readString();
+        DriverStation.reportWarning(read, false);
         stringBuilder += (read);
         DriverStation.reportWarning(stringBuilder, false );
 

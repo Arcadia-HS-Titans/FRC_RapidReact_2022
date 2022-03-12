@@ -22,21 +22,9 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
     // The robot's subsystems
-    private final DrivingSubsystem drivingSubsystem; // 4 PWM motors
     private ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
-    //private ColorSensorSubsystem colorSubsystem; // I2C port on RIO
-    private EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
-    private final LimitSwitchSubsystem limitSwitchSubsystem;
-    private final BallShooterSubsystem ballShooterSubsystem;
-    private final IntakeSubsystem intakeSubsystem;
 
-    // Devices
-    public final Joystick joystick;
-
-    // The main commands of the robot
     private final Command teleopCommand;
-    private final Command autoCommand;
-
 
     // A chooser for autonomous commands
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -48,28 +36,14 @@ public class RobotContainer {
         CameraServer.startAutomaticCapture();
 
         Shuffleboard.addEventMarker("A", "a", EventImportance.kNormal);
-        this.joystick = new Joystick(0);
-        this.drivingSubsystem = new DrivingSubsystem();
-        //this.colorSubsystem = new ColorSensorSubsystem();
-        //this.arduinoSubsystem = new ArduinoSubsystem();
-        //this.encoderSubsystem = new EncoderSubsystem();
-        this.limitSwitchSubsystem = new LimitSwitchSubsystem();
-        this.ballShooterSubsystem = new BallShooterSubsystem();
-        this.intakeSubsystem = new IntakeSubsystem();
-        this.teleopCommand = new DrivingTeleopCommand(
-                drivingSubsystem, joystick, /*colorSubsystem,*/ /*encoderSubsystem,*/ /*limitSwitchSubsystem,*/ ballShooterSubsystem, intakeSubsystem);
-        this.autoCommand = new AutoCommand(/*colorSubsystem,*/ drivingSubsystem /*encoderSubsystem*/, ballShooterSubsystem, intakeSubsystem);
-        // Configure default commands
-        // Set the default drive command to split-stick arcade drive
-        drivingSubsystem.setDefaultCommand(teleopCommand);
+        this.arduinoSubsystem = new ArduinoSubsystem();
+        this.teleopCommand = new DrivingTeleopCommand(arduinoSubsystem);
 
         // Add commands to the autonomous command chooser
-        m_chooser.setDefaultOption("TeleOperated", teleopCommand);
-        m_chooser.addOption("Autonomous", autoCommand);
+        m_chooser.setDefaultOption("OpsTest", teleopCommand);
 
         // Put the chooser on the dashboard
-        Shuffleboard.getTab("Autonomous").add(m_chooser);
-        Shuffleboard.getTab("TeleOperated").add(m_chooser);
+        Shuffleboard.getTab("OpsTest").add(m_chooser);
     }
 
     /**
@@ -77,9 +51,6 @@ public class RobotContainer {
      *
      * @return the command to run in autonomous
      */
-    public Command getAutonomousCommand() {
-        return autoCommand;
-    }
 
     public Command getTeleopCommand() {
         return teleopCommand;

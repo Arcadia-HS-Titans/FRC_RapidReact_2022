@@ -12,38 +12,12 @@ import frc.robot.subsystems.*;
  */
 public class DrivingTeleopCommand extends CommandBase {
 
-    private final Joystick joystick;
-    private final Joystick gamepad;
-
-    private final DrivingSubsystem drivingSubsystem;
-    //private final ColorSensorSubsystem colorSensorSubSystem;
-    //private final ArduinoSubsystem arduinoSubsystem;
-    //private final EncoderSubsystem encoderSubsystem;
-    //private final LimitSwitchSubsystem limitSwitchSubsystem;
-    private final BallShooterSubsystem ballShooterSubsystem;
-    private final IntakeSubsystem intakeSubsystem;
+    private final ArduinoSubsystem arduinoSubsystem;
 
     public DrivingTeleopCommand(
-            DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
-            /*ArduinoSubsystem arduinoSubsystem*/, /*EncoderSubsystem encoderSubsystem,*/
-            /*LimitSwitchSubsystem l
-            +imitSwitchSubsystem,*/ BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
-        this.drivingSubsystem = drivingSubsystem;
-        //this.colorSensorSubSystem = colorSensorSubSystem;
-        this.joystick = joystick;
-        this.gamepad = new Joystick(1);
-        //this.arduinoSubsystem = arduinoSubsystem;
-        //this.encoderSubsystem = encoderSubsystem;
-        //this.limitSwitchSubsystem = limitSwitchSubsystem;
-        this.ballShooterSubsystem = ballShooterSubsystem;
-        this.intakeSubsystem = intakeSubsystem;
-        addRequirements(drivingSubsystem);
-        //addRequirements(colorSensorSubSystem);
-        //addRequirements(arduinoSubsystem);
-        //addRequirements(encoderSubsystem);
-        //addRequirements(limitSwitchSubsystem);
-        addRequirements(ballShooterSubsystem);
-        addRequirements(intakeSubsystem);
+            ArduinoSubsystem arduinoSubsystem) {
+        this.arduinoSubsystem = arduinoSubsystem;
+        addRequirements(arduinoSubsystem);
     }
 
     /**Logitech contro
@@ -69,31 +43,6 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
-        //ballShooterSubsystem.fire(1);
-        // Arduino and Pixy recording
-/*
-        String pixyData = arduinoSubsystem.read();
-        if(!pixyData.equals("")) //If we've sent data
-            DriverStation.reportWarning(pixyData, false);
-*/
-        //TODO: RPM scale seems to be 1.5 ft -> 100 Rotations
-        // 180 Rotations -> 1 Wheel Cycle
-        //DriverStation.reportWarning(String.valueOf(limitSwitchSubsystem.get()), false);
-        drivingSubsystem.arcadeDrive(
-                joystick.getZ() * Constants.MOTOR_POWER_PERCENT,
-                joystick.getY() * Constants.MOTOR_POWER_PERCENT
-        );
-        if(gamepad.getRawButton(1)) {
-            //B on the logitech controller is pressed, taken from GLFW
-            ballShooterSubsystem.fire(.4);
-            intakeSubsystem.elevateBall(1);
-        } else {
-            ballShooterSubsystem.fire(0);
-            intakeSubsystem.setSpeed(0);
-        }
-        if(gamepad.getRawAxis(2) > .5)
-            intakeSubsystem.enterBall(1);
-        else
-            intakeSubsystem.enterBall(0);
+        arduinoSubsystem.read();
     }
 }
