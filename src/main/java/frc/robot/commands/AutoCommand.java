@@ -17,18 +17,18 @@ public class AutoCommand extends CommandBase {
 
     public AutoCommand(/*ArduinoSubsystem arduinoSubsystem*/ /*ColorSensorSubsystem colorSensorSubsystem,*/
                        DrivingSubsystem drivingSubsystem, /*EncoderSubsystem encoderSubsystem,*/
-                       /*BallShooterSubsystem ballShooterSubsystem,*/ IntakeSubsystem intakeSubsystem) {
+                       BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
         //this.arduinoSubsystem = arduinoSubsystem;
         //this.colorSensorSubsystem = colorSensorSubsystem;
         this.drivingSubsystem = drivingSubsystem;
         //this.encoderSubsystem = encoderSubsystem;
-        //this.ballShooterSubsystem = ballShooterSubsystem;
+        this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         //addRequirements(colorSensorSubsystem);
         //addRequirements(arduinoSubsystem);
         //addRequirements(encoderSubsystem);
-        //addRequirements(ballShooterSubsystem);
+        addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }
 
@@ -62,21 +62,15 @@ public class AutoCommand extends CommandBase {
 
     @Override
     public void execute() {
-        intakeSubsystem.setSpeed(1);
-        if(timer.get() < 1.d) {
-            drivingSubsystem.arcadeDrive(0f, -.5f);
-        }
-/*        rpm += encoderSubsystem.getLeftEncoder().getDistancePerPulse();
-        if(rpm < 150) {
-            DriverStation.reportWarning(String.valueOf(rpm), false);
-            drivingSubsystem.arcadeDrive(0, -0.7);
+        //intakeSubsystem.setSpeed(1);
+        if(timer.get() < 5) {
+            ballShooterSubsystem.fire(1);
             return;
-        }*/
-        //TODO: Use the timerm class and move the robot backk manually
-        // No more encoders for here
-
-        // TODO: Check ball and shoot mechanism
-        //ballShooterSubsystem.fire(0.7);
-
+        } else {
+            ballShooterSubsystem.fire(0);
+        }
+        if(timer.get() < 6.5) {
+            drivingSubsystem.arcadeDrive(0f, -.7f);
+        }
     }
 }

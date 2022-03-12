@@ -17,5 +17,5 @@ public class Constants {
     public static final int[] RIGHT_ENCODER_PORTS = {2, 3};
     public static final int MAGNETIC_SWITCH_PORT = 4;
 
-    public static final double MOTOR_POWER_PERCENT = 0.8;
+    public static final double MOTOR_POWER_PERCENT = 0.9;
 }
