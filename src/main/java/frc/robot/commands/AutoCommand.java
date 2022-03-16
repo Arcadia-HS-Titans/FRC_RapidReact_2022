@@ -9,7 +9,6 @@ public class AutoCommand extends CommandBase {
     private ArduinoSubsystem arduinoSubsystem;
     private ColorSensorSubsystem colorSensorSubsystem;
     private DrivingSubsystem drivingSubsystem;
-    private EncoderSubsystem encoderSubsystem;
     private BallShooterSubsystem ballShooterSubsystem;
     private IntakeSubsystem intakeSubsystem;
 

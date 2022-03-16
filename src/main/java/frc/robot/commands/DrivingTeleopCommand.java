@@ -108,5 +108,7 @@ public class DrivingTeleopCommand extends CommandBase {
         } else {
             ballShooterSubsystem.turnSusan(0);
         }
+        //Log velocity
+        System.out.println(ballShooterSubsystem.getVelocity());
     }
 }
