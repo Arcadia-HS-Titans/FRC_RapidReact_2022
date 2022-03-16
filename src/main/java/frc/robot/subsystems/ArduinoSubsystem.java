@@ -24,13 +24,17 @@ public class ArduinoSubsystem extends SubsystemBase {
         // Get input from serial line and add to StringBuilder
         String read = arduino.readString();
         stringBuilder += (read);
-        DriverStation.reportWarning(stringBuilder, false );
 
         // Check if we should have stopped and sent a packet
         int index = stringBuilder.indexOf(packetStop);
         if(index == -1)
             return ""; // We're still sending information, so keep on appending and return nothing
         String result = stringBuilder.substring(0, index);
+        if(result.length() == 0) {
+            stringBuilder = (stringBuilder.substring(index+packetStop.length()));
+            return "";
+        }
+        DriverStation.reportWarning(stringBuilder, false );
         // Start the stringbuilder from where it left off
         stringBuilder = (stringBuilder.substring(index+packetStop.length()));
         return result;

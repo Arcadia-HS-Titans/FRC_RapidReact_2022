@@ -83,9 +83,12 @@ public class DrivingTeleopCommand extends CommandBase {
                 joystick.getZ() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
+        double value = joystick.getRawAxis(3);
+        if(value < 0) value *= -1;
+        DriverStation.reportWarning(String.valueOf(value), false);
         if(gamepad.getRawButton(1)) {
             //B on the logitech controller is pressed, taken from GLFW
-            ballShooterSubsystem.fire(.4);
+            ballShooterSubsystem.fire(value);
             intakeSubsystem.elevateBall(1);
         } else {
             ballShooterSubsystem.fire(0);
@@ -95,5 +98,15 @@ public class DrivingTeleopCommand extends CommandBase {
             intakeSubsystem.enterBall(1);
         else
             intakeSubsystem.enterBall(0);
+
+        if(gamepad.getRawAxis(0) > 0.1) {
+            ballShooterSubsystem.setInverted(true);
+            ballShooterSubsystem.turnSusan(1);
+        } else if(gamepad.getRawAxis(0) < -0.1) {
+            ballShooterSubsystem.setInverted(false);
+            ballShooterSubsystem.turnSusan(1);
+        } else {
+            ballShooterSubsystem.turnSusan(0);
+        }
     }
 }
