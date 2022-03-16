@@ -36,6 +36,7 @@ public class RobotContainer {
     // The main commands of the robot
     private final Command teleopCommand;
     private final Command autoCommand;
+    private final Command testCommand;
 
 
     // A chooser for autonomous commands
@@ -59,6 +60,7 @@ public class RobotContainer {
         this.teleopCommand = new DrivingTeleopCommand(
                 drivingSubsystem, joystick, arduinoSubsystem, /*colorSubsystem,*/ /*encoderSubsystem,*/ /*limitSwitchSubsystem,*/ ballShooterSubsystem, intakeSubsystem);
         this.autoCommand = new AutoCommand(/*colorSubsystem,*/ drivingSubsystem /*encoderSubsystem*/, ballShooterSubsystem, intakeSubsystem);
+        this.testCommand = new TestCommand(arduinoSubsystem, encoderSubsystem, ballShooterSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
         drivingSubsystem.setDefaultCommand(teleopCommand);
@@ -66,10 +68,12 @@ public class RobotContainer {
         // Add commands to the autonomous command chooser
         m_chooser.setDefaultOption("TeleOperated", teleopCommand);
         m_chooser.addOption("Autonomous", autoCommand);
+        m_chooser.addOption("Test", testCommand);
 
         // Put the chooser on the dashboard
         Shuffleboard.getTab("Autonomous").add(m_chooser);
         Shuffleboard.getTab("TeleOperated").add(m_chooser);
+        Shuffleboard.getTab("Test").add(m_chooser);
     }
 
     /**
@@ -83,5 +87,9 @@ public class RobotContainer {
 
     public Command getTeleopCommand() {
         return teleopCommand;
+    }
+    
+    public Command getTestCommand() {
+        return testCommand;
     }
 }
