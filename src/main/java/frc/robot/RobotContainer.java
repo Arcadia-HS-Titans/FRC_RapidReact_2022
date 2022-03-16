@@ -25,7 +25,6 @@ public class RobotContainer {
     private final DrivingSubsystem drivingSubsystem; // 4 PWM motors
     private ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
     //private ColorSensorSubsystem colorSubsystem; // I2C port on RIO
-    private EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
     private final LimitSwitchSubsystem limitSwitchSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;

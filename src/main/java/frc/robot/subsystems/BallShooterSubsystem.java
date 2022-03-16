@@ -23,7 +23,8 @@ public class BallShooterSubsystem extends SubsystemBase {
     }
 
     public void fire(double powerPercent) {
-        canBus.set(powerPercent);
+        double scale = 0.8;
+        canBus.set(powerPercent * scale);
     }
 
     public RelativeEncoder getEncoder() {
