@@ -17,29 +17,29 @@ public class DrivingTeleopCommand extends CommandBase {
 
     private final DrivingSubsystem drivingSubsystem;
     //private final ColorSensorSubsystem colorSensorSubSystem;
-    private final ArduinoSubsystem arduinoSubsystem;
+    //private final ArduinoSubsystem arduinoSubsystem;
     //private final EncoderSubsystem encoderSubsystem;
     //private final LimitSwitchSubsystem limitSwitchSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
 
     public DrivingTeleopCommand(
-            DrivingSubsystem drivingSubsystem, Joystick joystick, /*ColorSensorSubsystem colorSensorSubSystem,*/
-            ArduinoSubsystem arduinoSubsystem, /*EncoderSubsystem encoderSubsystem,*/
+            DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
+            /*ArduinoSubsystem arduinoSubsystem*/, /*EncoderSubsystem encoderSubsystem,*/
             /*LimitSwitchSubsystem l
             +imitSwitchSubsystem,*/ BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.drivingSubsystem = drivingSubsystem;
         //this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         this.gamepad = new Joystick(1);
-        this.arduinoSubsystem = arduinoSubsystem;
+        //this.arduinoSubsystem = arduinoSubsystem;
         //this.encoderSubsystem = encoderSubsystem;
         //this.limitSwitchSubsystem = limitSwitchSubsystem;
         this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         //addRequirements(colorSensorSubSystem);
-        addRequirements(arduinoSubsystem);
+        //addRequirements(arduinoSubsystem);
         //addRequirements(encoderSubsystem);
         //addRequirements(limitSwitchSubsystem);
         addRequirements(ballShooterSubsystem);
@@ -76,7 +76,6 @@ public class DrivingTeleopCommand extends CommandBase {
         if(!pixyData.equals("")) //If we've sent data
             DriverStation.reportWarning(pixyData, false);
 */
-        DriverStation.reportWarning(arduinoSubsystem.read(), false);
         //TODO: RPM scale seems to be 1.5 ft -> 100 Rotations
         // 180 Rotations -> 1 Wheel Cycle
         //DriverStation.reportWarning(String.valueOf(limitSwitchSubsystem.get()), false);

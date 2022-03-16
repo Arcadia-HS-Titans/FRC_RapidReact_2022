@@ -52,10 +52,6 @@ public class BallShooterSubsystem extends SubsystemBase {
         susanMotor.set(power);
     }
 
-    public void turnSusanRaw(double power) {
-        susanMotor.set(power);
-    }
-
     public boolean read() {
         return false;
     }

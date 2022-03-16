@@ -11,7 +11,7 @@ public class ArduinoSubsystem extends SubsystemBase {
 
     public ArduinoSubsystem() {
         try {
-            this.arduino = new SerialPort(9600, SerialPort.Port.kUSB2);
+            this.arduino = new SerialPort(9600, SerialPort.Port.kUSB1);
         } catch (Exception e) {
             DriverStation.reportError("Arduino could not connect: ", e.getStackTrace());
         }
