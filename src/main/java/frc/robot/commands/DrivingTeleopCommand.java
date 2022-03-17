@@ -68,7 +68,6 @@ public class DrivingTeleopCommand extends CommandBase {
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
 
-        //
         double value = joystick.getRawAxis(3);
         if(value < 0) value *= -1;
         DriverStation.reportWarning(String.valueOf(value), false);
@@ -80,20 +79,15 @@ public class DrivingTeleopCommand extends CommandBase {
             ballShooterSubsystem.fire(0);
             intakeSubsystem.setSpeed(0);
         }
+
         if(gamepad.getRawAxis(2) > .5)
             intakeSubsystem.enterBall(1);
         else {
             intakeSubsystem.enterBall(0);
         }
 
-        if(gamepad.getRawAxis(0) > 0.1) {
-            ballShooterSubsystem.setInverted(true);
-            ballShooterSubsystem.turnSusan(1);
-        } else if(gamepad.getRawAxis(0) < -0.1) {
-            ballShooterSubsystem.setInverted(false);
-            ballShooterSubsystem.turnSusan(1);
-        } else {
-            ballShooterSubsystem.turnSusan(0);
+        if(gamepad.getRawAxis(0) != 0) {
+            ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0));
         }
         //Log velocity
         String read = arduinoSubsystem.read();

@@ -11,18 +11,16 @@ import frc.robot.Constants;
 public class BallShooterSubsystem extends SubsystemBase {
     private final CANSparkMax canBus;
     private final PWMVictorSPX susanMotor;
-    private final DigitalInput magSwitch;
     private final RelativeEncoder encoder;
-    //private final DigitalInput magSwitch;
+    private final DigitalInput magSwitch;
 
     private double rotationCounter = 0;
 
     public BallShooterSubsystem() {
         this.canBus = new CANSparkMax(12, CANSparkMaxLowLevel.MotorType.kBrushless); // TODO: Change device ID to when it's set up
         this.susanMotor = new PWMVictorSPX(Constants.SUSAN_ROTATION_PORT);
-        this.magSwitch = new DigitalInput(Constants.MAGNETIC_SWITCH_PORT);
         this.encoder = canBus.getEncoder();
-        //this.magSwitch = new DigitalInput(Constants.MAGNETIC_SWITCH_PORT);
+        this.magSwitch = new DigitalInput(Constants.MAGNETIC_SWITCH_PORT);
     }
 
     public void fire(double powerPercent) {
@@ -42,17 +40,15 @@ public class BallShooterSubsystem extends SubsystemBase {
     }
 
     public void turnSusan(double power) {
-/*        rotationCounter+=power;
-        if(read()) {
-            if(rotationCounter > 0) {
-                //TODO: Restrict movement/flip around
-            } else {
-                //TODO: Restrict movement/flip around
-            }
-            return;
+        if(power > 0.1) {
+            susanMotor.setInverted(true);
+            susanMotor.set(1);
+        } else if(power < -0.1) {
+            susanMotor.setInverted(false);
+            susanMotor.set(1);
+        } else {
+            susanMotor.set(0);
         }
-        susanMotor.set(power);*/
-        susanMotor.set(power);
     }
 
     public boolean read() {
