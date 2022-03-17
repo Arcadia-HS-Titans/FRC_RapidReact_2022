@@ -92,7 +92,7 @@ public class DrivingTeleopCommand extends CommandBase {
             ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0));
         }
 
-        if(gamepad.getRawButton(3)) {
+        if(gamepad.getRawButton(5)) {
             arduinoSubsystem.sendPackets(false);
         }
 
