@@ -17,23 +17,24 @@ public class DrivingTeleopCommand extends CommandBase {
 
     private final DrivingSubsystem drivingSubsystem;
     //private final ColorSensorSubsystem colorSensorSubSystem;
-    //private final ArduinoSubsystem arduinoSubsystem;
+    private final ArduinoSubsystem arduinoSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
 
     public DrivingTeleopCommand(
-            DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
-            /*ArduinoSubsystem arduinoSubsystem*/, BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
+            DrivingSubsystem drivingSubsystem, Joystick joystick, /*ColorSensorSubsystem colorSensorSubSystem,*/
+            ArduinoSubsystem arduinoSubsystem, BallShooterSubsystem ballShooterSubsystem,
+            IntakeSubsystem intakeSubsystem) {
         this.drivingSubsystem = drivingSubsystem;
         //this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         this.gamepad = new Joystick(1);
-        //this.arduinoSubsystem = arduinoSubsystem;
+        this.arduinoSubsystem = arduinoSubsystem;
         this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         //addRequirements(colorSensorSubSystem);
-        //addRequirements(arduinoSubsystem);
+        addRequirements(arduinoSubsystem);
         addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }
@@ -95,6 +96,9 @@ public class DrivingTeleopCommand extends CommandBase {
             ballShooterSubsystem.turnSusan(0);
         }
         //Log velocity
+        String read = arduinoSubsystem.read();
+        if(!read.equals(""))
+            System.out.println(read);
         System.out.println(ballShooterSubsystem.getVelocity());
     }
 }

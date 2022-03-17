@@ -53,8 +53,8 @@ public class RobotContainer {
         this.ballShooterSubsystem = new BallShooterSubsystem();
         this.intakeSubsystem = new IntakeSubsystem();
         this.teleopCommand = new DrivingTeleopCommand(
-                drivingSubsystem, joystick, /*colorSubsystem,*/ ballShooterSubsystem, intakeSubsystem);
-        this.autoCommand = new AutoCommand(/*colorSubsystem,*/ drivingSubsystem, ballShooterSubsystem, intakeSubsystem);
+                drivingSubsystem, joystick, /*colorSubsystem,*/arduinoSubsystem, ballShooterSubsystem, intakeSubsystem);
+        this.autoCommand = new AutoCommand(arduinoSubsystem, /*colorSubsystem,*/ drivingSubsystem, ballShooterSubsystem, intakeSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
         drivingSubsystem.setDefaultCommand(teleopCommand);
