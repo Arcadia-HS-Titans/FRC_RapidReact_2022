@@ -40,12 +40,15 @@ public class BallShooterSubsystem extends SubsystemBase {
     }
 
     public void turnSusan(double power) {
-        if(power > 0.1) {
+        if(this.magSwitch.get()) {
+            return;
+        }
+        if(power >= 0) {
             susanMotor.setInverted(true);
-            susanMotor.set(1);
-        } else if(power < -0.1) {
+            susanMotor.set(power);
+        } else if(power < 0) {
             susanMotor.setInverted(false);
-            susanMotor.set(1);
+            susanMotor.set(-power);
         } else {
             susanMotor.set(0);
         }

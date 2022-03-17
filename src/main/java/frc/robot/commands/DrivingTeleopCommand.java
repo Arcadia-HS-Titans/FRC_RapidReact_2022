@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.*;
 
+import java.util.List;
+
 /**
  * https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html#simple-command-example
  * https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/hatchbottraditional/commands/DefaultDrive.java
@@ -90,9 +92,18 @@ public class DrivingTeleopCommand extends CommandBase {
             ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0));
         }
         //Log velocity
-        String read = arduinoSubsystem.read();
-        if(!read.equals(""))
-            System.out.println(read);
+        ArduinoSubsystem.PixyPacket read = arduinoSubsystem.read();
+        if(!(read.x == 0 && read.y == 0 && read.scale == 0))
+            if (read.scale <= 150) {
+                if (read.x >= 0.5) {
+                    ballShooterSubsystem.turnSusan(-(read.x+1));
+                } else {
+                    ballShooterSubsystem.turnSusan(read.x+1);
+                }
+                System.out.println(new double[]{read.x, read.y, read.scale});
+            } else {
+                System.out.println(new double[]{read.x, read.y, read.scale});
+            }
         System.out.println(ballShooterSubsystem.getVelocity());
     }
 }
