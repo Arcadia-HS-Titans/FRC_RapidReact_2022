@@ -81,8 +81,9 @@ public class DrivingTeleopCommand extends CommandBase {
         }
         if(gamepad.getRawAxis(2) > .5)
             intakeSubsystem.enterBall(1);
-        else
+        else {
             intakeSubsystem.enterBall(0);
+        }
 
         if(gamepad.getRawAxis(0) > 0.1) {
             ballShooterSubsystem.setInverted(true);
@@ -93,5 +94,7 @@ public class DrivingTeleopCommand extends CommandBase {
         } else {
             ballShooterSubsystem.turnSusan(0);
         }
+        //Log velocity
+        System.out.println(ballShooterSubsystem.getVelocity());
     }
 }
