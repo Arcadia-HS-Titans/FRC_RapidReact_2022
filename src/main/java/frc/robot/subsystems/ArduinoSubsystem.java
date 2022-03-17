@@ -1,8 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.ArrayList;
@@ -10,6 +8,7 @@ import java.util.List;
 
 public class ArduinoSubsystem extends SubsystemBase {
     private SerialPort arduino;
+    private Boolean send = true;
 
     public ArduinoSubsystem() {
         try {
@@ -46,7 +45,14 @@ public class ArduinoSubsystem extends SubsystemBase {
         }
     }
 
+    public void sendPackets(Boolean s) {
+        send = false;
+    }
+
     public PixyPacket read() {
+        if (!send) {
+            return new PixyPacket();
+        }
         // Get input from serial line and add to StringBuilder
         stringBuilder.append(arduino.readString());
 
@@ -59,11 +65,11 @@ public class ArduinoSubsystem extends SubsystemBase {
             stringBuilder.replace(0, index+packetStop.length(), "");
             return new PixyPacket();
         }
-        String[] datar = result.split("\\|");
+        String[] data_ = result.split("\\|");
         List<Double> data = new ArrayList<>();
-        data.add(Double.parseDouble(datar[0]));
-        data.add(Double.parseDouble(datar[1]));
-        data.add(Double.parseDouble(datar[2]));
+        data.add(Double.parseDouble(data_[0]));
+        data.add(Double.parseDouble(data_[1]));
+        data.add(Double.parseDouble(data_[2]));
 
         System.out.println(data);
         return new PixyPacket(data);

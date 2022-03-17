@@ -91,6 +91,11 @@ public class DrivingTeleopCommand extends CommandBase {
         if(gamepad.getRawAxis(0) != 0) {
             ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0));
         }
+
+        if(gamepad.getRawButton(3)) {
+            arduinoSubsystem.sendPackets(false);
+        }
+
         //Log velocity
         ArduinoSubsystem.PixyPacket read = arduinoSubsystem.read();
         if(!(read.x == 0 && read.y == 0 && read.scale == 0))
