@@ -40,7 +40,7 @@ public class BallShooterSubsystem extends SubsystemBase {
     }
 
     public void turnSusan(double power) {
-        if(this.magSwitch.get()) {
+        if(!this.magSwitch.get()) {
             return;
         }
         if(power >= 0) {

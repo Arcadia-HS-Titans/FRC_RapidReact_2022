@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,24 +20,24 @@ public class DrivingTeleopCommand extends CommandBase {
 
     private final DrivingSubsystem drivingSubsystem;
     //private final ColorSensorSubsystem colorSensorSubSystem;
-    private final ArduinoSubsystem arduinoSubsystem;
+    private ArduinoSubsystem arduinoSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
 
     public DrivingTeleopCommand(
-            DrivingSubsystem drivingSubsystem, Joystick joystick, /*ColorSensorSubsystem colorSensorSubSystem,*/
-            ArduinoSubsystem arduinoSubsystem, BallShooterSubsystem ballShooterSubsystem,
+            DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
+            /*ArduinoSubsystem arduinoSubsystem*/, BallShooterSubsystem ballShooterSubsystem,
             IntakeSubsystem intakeSubsystem) {
         this.drivingSubsystem = drivingSubsystem;
         //this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         this.gamepad = new Joystick(1);
-        this.arduinoSubsystem = arduinoSubsystem;
+        //this.arduinoSubsystem = arduinoSubsystem;
         this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         //addRequirements(colorSensorSubSystem);
-        addRequirements(arduinoSubsystem);
+        //addRequirements(arduinoSubsystem);
         addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }
@@ -64,22 +65,26 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
-        DriverStation.reportWarning(String.valueOf(ballShooterSubsystem.read()), false);
         drivingSubsystem.arcadeDrive(
                 joystick.getZ() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
 
         double value = joystick.getRawAxis(3);
-        if(value < 0) value *= -1;
-        DriverStation.reportWarning(String.valueOf(value), false);
+        value *= -1;
+        value = (value/2)+0.5;
+        DriverStation.reportWarning("RPM (Velocity): " + ballShooterSubsystem.getEncoder().getVelocity(), false);
         if(gamepad.getRawButton(1)) {
             //B on the logitech controller is pressed, taken from GLFW
             ballShooterSubsystem.fire(value);
-            intakeSubsystem.elevateBall(1);
         } else {
             ballShooterSubsystem.fire(0);
-            intakeSubsystem.setSpeed(0);
+        }
+
+        if(gamepad.getRawButton(4)) {
+            intakeSubsystem.elevateBall(1);
+        } else {
+            intakeSubsystem.elevateBall(0);
         }
 
         if(gamepad.getRawAxis(2) > .5)
@@ -87,28 +92,21 @@ public class DrivingTeleopCommand extends CommandBase {
         else {
             intakeSubsystem.enterBall(0);
         }
-
-        if(gamepad.getRawAxis(0) != 0) {
-            ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0));
-        }
+        ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0));
 
         if(gamepad.getRawButton(5)) {
             arduinoSubsystem.sendPackets(false);
         }
 
         //Log velocity
-        ArduinoSubsystem.PixyPacket read = arduinoSubsystem.read();
+        /*ArduinoSubsystem.PixyPacket read = arduinoSubsystem.read();
         if(!(read.x == 0 && read.y == 0 && read.scale == 0))
             if (read.scale <= 150) {
-                if (read.x >= 0.5) {
-                    ballShooterSubsystem.turnSusan(-(read.x+1));
-                } else {
-                    ballShooterSubsystem.turnSusan(read.x+1);
-                }
-                System.out.println(new double[]{read.x, read.y, read.scale});
+                ballShooterSubsystem.turnSusan(read.x-1);
+                System.out.println(Arrays.toString(new double[]{read.x, read.y, read.scale}));
             } else {
-                System.out.println(new double[]{read.x, read.y, read.scale});
+                System.out.println(Arrays.toString(new double[]{read.x, read.y, read.scale}));
             }
-        System.out.println(ballShooterSubsystem.getVelocity());
+        System.out.println(ballShooterSubsystem.getVelocity());*/
     }
 }
