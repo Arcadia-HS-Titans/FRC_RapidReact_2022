@@ -17,26 +17,23 @@ public class ArduinoSubsystem extends SubsystemBase {
         }
     }
 
-    private String stringBuilder = ("");
+    private StringBuffer stringBuilder = new StringBuffer();
     private static final String packetStop = "EOP"; // End Of Packet
 
     public String read() {
         // Get input from serial line and add to StringBuilder
-        String read = arduino.readString();
-        stringBuilder += (read);
+        stringBuilder.append(arduino.readString());
 
         // Check if we should have stopped and sent a packet
-        int index = stringBuilder.indexOf(packetStop);
+        int index = stringBuilder.indexOf("EOP");
         if(index == -1)
             return ""; // We're still sending information, so keep on appending and return nothing
         String result = stringBuilder.substring(0, index);
         if(result.length() == 0) {
-            stringBuilder = (stringBuilder.substring(index+packetStop.length()));
+            stringBuilder.replace(0, index+packetStop.length(), "");
             return "";
         }
-        DriverStation.reportWarning(stringBuilder, false );
-        // Start the stringbuilder from where it left off
-        stringBuilder = (stringBuilder.substring(index+packetStop.length()));
+        stringBuilder.replace(0, index+packetStop.length(), "");
         return result;
     }
 }

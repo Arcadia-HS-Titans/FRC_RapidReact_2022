@@ -18,30 +18,22 @@ public class DrivingTeleopCommand extends CommandBase {
     private final DrivingSubsystem drivingSubsystem;
     //private final ColorSensorSubsystem colorSensorSubSystem;
     //private final ArduinoSubsystem arduinoSubsystem;
-    //private final EncoderSubsystem encoderSubsystem;
-    //private final LimitSwitchSubsystem limitSwitchSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
 
     public DrivingTeleopCommand(
             DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
-            /*ArduinoSubsystem arduinoSubsystem*/, /*EncoderSubsystem encoderSubsystem,*/
-            /*LimitSwitchSubsystem l
-            +imitSwitchSubsystem,*/ BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
+            /*ArduinoSubsystem arduinoSubsystem*/, BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.drivingSubsystem = drivingSubsystem;
         //this.colorSensorSubSystem = colorSensorSubSystem;
         this.joystick = joystick;
         this.gamepad = new Joystick(1);
         //this.arduinoSubsystem = arduinoSubsystem;
-        //this.encoderSubsystem = encoderSubsystem;
-        //this.limitSwitchSubsystem = limitSwitchSubsystem;
         this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         //addRequirements(colorSensorSubSystem);
         //addRequirements(arduinoSubsystem);
-        //addRequirements(encoderSubsystem);
-        //addRequirements(limitSwitchSubsystem);
         addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }
@@ -69,20 +61,13 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
-        //ballShooterSubsystem.fire(1);
-        // Arduino and Pixy recording
-/*
-        String pixyData = arduinoSubsystem.read();
-        if(!pixyData.equals("")) //If we've sent data
-            DriverStation.reportWarning(pixyData, false);
-*/
-        //TODO: RPM scale seems to be 1.5 ft -> 100 Rotations
-        // 180 Rotations -> 1 Wheel Cycle
-        //DriverStation.reportWarning(String.valueOf(limitSwitchSubsystem.get()), false);
+        DriverStation.reportWarning(String.valueOf(ballShooterSubsystem.read()), false);
         drivingSubsystem.arcadeDrive(
                 joystick.getZ() * Constants.MOTOR_POWER_PERCENT,
                 joystick.getY() * Constants.MOTOR_POWER_PERCENT
         );
+
+        //
         double value = joystick.getRawAxis(3);
         if(value < 0) value *= -1;
         DriverStation.reportWarning(String.valueOf(value), false);

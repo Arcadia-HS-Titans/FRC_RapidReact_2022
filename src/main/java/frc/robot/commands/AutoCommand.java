@@ -9,25 +9,22 @@ public class AutoCommand extends CommandBase {
     private ArduinoSubsystem arduinoSubsystem;
     private ColorSensorSubsystem colorSensorSubsystem;
     private DrivingSubsystem drivingSubsystem;
-    private EncoderSubsystem encoderSubsystem;
     private BallShooterSubsystem ballShooterSubsystem;
     private IntakeSubsystem intakeSubsystem;
 
     private int rpm = 0; // Counts of encoder pulses
 
     public AutoCommand(/*ArduinoSubsystem arduinoSubsystem*/ /*ColorSensorSubsystem colorSensorSubsystem,*/
-                       DrivingSubsystem drivingSubsystem, /*EncoderSubsystem encoderSubsystem,*/
+                       DrivingSubsystem drivingSubsystem,
                        BallShooterSubsystem ballShooterSubsystem, IntakeSubsystem intakeSubsystem) {
         //this.arduinoSubsystem = arduinoSubsystem;
         //this.colorSensorSubsystem = colorSensorSubsystem;
         this.drivingSubsystem = drivingSubsystem;
-        //this.encoderSubsystem = encoderSubsystem;
         this.ballShooterSubsystem = ballShooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(drivingSubsystem);
         //addRequirements(colorSensorSubsystem);
         //addRequirements(arduinoSubsystem);
-        //addRequirements(encoderSubsystem);
         addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
     }

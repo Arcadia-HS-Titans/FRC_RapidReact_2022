@@ -25,8 +25,6 @@ public class RobotContainer {
     private final DrivingSubsystem drivingSubsystem; // 4 PWM motors
     private ArduinoSubsystem arduinoSubsystem; // USB on RoboRIO
     //private ColorSensorSubsystem colorSubsystem; // I2C port on RIO
-    private EncoderSubsystem encoderSubsystem; // 2 DIO ports on RIO
-    private final LimitSwitchSubsystem limitSwitchSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
 
@@ -52,13 +50,11 @@ public class RobotContainer {
         this.drivingSubsystem = new DrivingSubsystem();
         //this.colorSubsystem = new ColorSensorSubsystem();
         //this.arduinoSubsystem = new ArduinoSubsystem();
-        //this.encoderSubsystem = new EncoderSubsystem();
-        this.limitSwitchSubsystem = new LimitSwitchSubsystem();
         this.ballShooterSubsystem = new BallShooterSubsystem();
         this.intakeSubsystem = new IntakeSubsystem();
         this.teleopCommand = new DrivingTeleopCommand(
-                drivingSubsystem, joystick, /*colorSubsystem,*/ /*encoderSubsystem,*/ /*limitSwitchSubsystem,*/ ballShooterSubsystem, intakeSubsystem);
-        this.autoCommand = new AutoCommand(/*colorSubsystem,*/ drivingSubsystem /*encoderSubsystem*/, ballShooterSubsystem, intakeSubsystem);
+                drivingSubsystem, joystick, /*colorSubsystem,*/ ballShooterSubsystem, intakeSubsystem);
+        this.autoCommand = new AutoCommand(/*colorSubsystem,*/ drivingSubsystem, ballShooterSubsystem, intakeSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
         drivingSubsystem.setDefaultCommand(teleopCommand);

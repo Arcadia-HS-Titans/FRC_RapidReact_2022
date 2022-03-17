@@ -13,9 +13,7 @@ public class Constants {
 
 
     /**------DIO Ports-------*/
-    public static final int[] LEFT_ENCODER_PORTS = {0, 1};
-    public static final int[] RIGHT_ENCODER_PORTS = {2, 3};
-    public static final int MAGNETIC_SWITCH_PORT = 4;
+    public static final int MAGNETIC_SWITCH_PORT = 0;
 
     public static final double MOTOR_POWER_PERCENT = 0.9;
 }
