@@ -81,7 +81,7 @@ public class DrivingTeleopCommand extends CommandBase {
             ballShooterSubsystem.fire(0);
         }
 
-        if(gamepad.getRawButton(4)) {
+        if(gamepad.getRawButton(6)) {
             intakeSubsystem.elevateBall(1);
         } else {
             intakeSubsystem.elevateBall(0);
@@ -92,11 +92,7 @@ public class DrivingTeleopCommand extends CommandBase {
         else {
             intakeSubsystem.enterBall(0);
         }
-        ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0));
-
-        if(gamepad.getRawButton(5)) {
-            arduinoSubsystem.sendPackets(false);
-        }
+        ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0) * .9);
 
         //Log velocity
         /*ArduinoSubsystem.PixyPacket read = arduinoSubsystem.read();
