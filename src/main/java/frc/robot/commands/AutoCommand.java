@@ -59,16 +59,27 @@ public class AutoCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(timer.get() < 4) {
-            ballShooterSubsystem.fire(.4);
-            intakeSubsystem.elevateBall(1);
+        if(timer.get() < 1) {
+            ballShooterSubsystem.fire(.42);
             return;
-        } else {
-            ballShooterSubsystem.fire(0);
-            intakeSubsystem.elevateBall(0);
         }
-        if(timer.get() < 5.5) {
+        if(timer.get() > 14.0) {
+            intakeSubsystem.elevateBall(0);
+            intakeSubsystem.enterBall(0);
+            ballShooterSubsystem.fire(0);
+        } else {
+            DriverStation.reportWarning("RPM (Velocity): " + ballShooterSubsystem.getEncoder().getVelocity(), false);
+            intakeSubsystem.elevateBall(1);
+            intakeSubsystem.enterBall(1);
+        }
+        if(timer.get() < 4) {
+            ballShooterSubsystem.fire(.42);
+            return;
+        }
+        if(timer.get() < 5) {
             drivingSubsystem.arcadeDrive(0f, -.7f);
+        } else {
+            ballShooterSubsystem.fire(.9);
         }
     }
 }

@@ -49,29 +49,20 @@ public class ArduinoSubsystem extends SubsystemBase {
         send = false;
     }
 
-    public PixyPacket read() {
-        if (!send) {
-            return new PixyPacket();
-        }
+    public String read() {
         // Get input from serial line and add to StringBuilder
         stringBuilder.append(arduino.readString());
 
         // Check if we should have stopped and sent a packet
         int index = stringBuilder.indexOf("EOP");
         if(index == -1)
-            return new PixyPacket(); // We're still sending information, so keep on appending and return nothing
+            return ""; // We're still sending information, so keep on appending and return nothing
         String result = stringBuilder.substring(0, index);
         if(result.length() == 0) {
             stringBuilder.replace(0, index+packetStop.length(), "");
-            return new PixyPacket();
+            return "";
         }
-        String[] data_ = result.split("\\|");
-        List<Double> data = new ArrayList<>();
-        data.add(Double.parseDouble(data_[0]));
-        data.add(Double.parseDouble(data_[1]));
-        data.add(Double.parseDouble(data_[2]));
+        return result;
 
-        System.out.println(data);
-        return new PixyPacket(data);
     }
 }

@@ -74,9 +74,14 @@ public class DrivingTeleopCommand extends CommandBase {
         value *= -1;
         value = (value/2)+0.5;
         DriverStation.reportWarning("RPM (Velocity): " + ballShooterSubsystem.getEncoder().getVelocity(), false);
+        DriverStation.reportWarning("Percentage: " + value, false);
+
+
         if(gamepad.getRawButton(1)) {
             //B on the logitech controller is pressed, taken from GLFW
-            ballShooterSubsystem.fire(value);
+            ballShooterSubsystem.fire(.42);
+        } else if(gamepad.getRawButton(4)) {
+            ballShooterSubsystem.fire(.9);
         } else {
             ballShooterSubsystem.fire(0);
         }
@@ -88,11 +93,11 @@ public class DrivingTeleopCommand extends CommandBase {
         }
 
         if(gamepad.getRawAxis(2) > .5)
-            intakeSubsystem.enterBall(1);
-        else {
             intakeSubsystem.enterBall(0);
+        else {
+            intakeSubsystem.enterBall(1);
         }
-        ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0) * .9);
+        ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0) * .7);
 
         //Log velocity
         /*ArduinoSubsystem.PixyPacket read = arduinoSubsystem.read();

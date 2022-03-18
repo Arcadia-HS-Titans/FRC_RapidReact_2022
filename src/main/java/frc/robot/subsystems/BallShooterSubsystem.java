@@ -38,6 +38,10 @@ public class BallShooterSubsystem extends SubsystemBase {
         susanMotor.setInverted(value);
     }
 
+    public CANSparkMax getCanBus() {
+        return canBus;
+    }
+
     private float rotation = 0;
     private Timer timer = new Timer();
     private boolean forcedTurning = false;
@@ -48,7 +52,7 @@ public class BallShooterSubsystem extends SubsystemBase {
         if(forcedTurning) {
             rotation += value;
             powerSusan(value);
-            if(timer.get() > .25) {
+            if(timer.get() > .3) {
                 forcedTurning = false;
                 value = 0;
             }
