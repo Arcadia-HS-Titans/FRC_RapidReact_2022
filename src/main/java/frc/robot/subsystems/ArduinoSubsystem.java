@@ -50,19 +50,43 @@ public class ArduinoSubsystem extends SubsystemBase {
     }
 
     public String read() {
-        // Get input from serial line and add to StringBuilder
+/*        // Get input from serial line and add to StringBuilder
         stringBuilder.append(arduino.readString());
 
         // Check if we should have stopped and sent a packet
         int index = stringBuilder.indexOf("EOP");
-        if(index == -1)
+        if(index == -1) {
             return ""; // We're still sending information, so keep on appending and return nothing
+        }
+        String result = stringBuilder.substring(0, index);
+        if(result.length() == 0) {
+            stringBuilder.replace(0, index+packetStop.length(), "");
+            return "";
+        }
+        return result;*/
+        // Get input from serial line and add to StringBuilder
+        stringBuilder.append(arduino.readString());
+
+        // Check if we should have stopped and sent a packet
+        int index = stringBuilder.indexOf(".");
+        if(index == -1) {
+            //We don't have 1 full packet, do we have EOPs?
+            index = stringBuilder.indexOf("EOP");
+            if(index == -1) {
+                return ""; // We're still sending information, so keep on appending and return nothing
+            }
+            //There are EOPs, clear them from the list
+            stringBuilder.replace(index, index+packetStop.length(), "");
+            return "";
+        }
+        //If we have at least 1 full packet
+        //stringBuilder.
+
         String result = stringBuilder.substring(0, index);
         if(result.length() == 0) {
             stringBuilder.replace(0, index+packetStop.length(), "");
             return "";
         }
         return result;
-
     }
 }

@@ -54,6 +54,7 @@ void loop(){
     piOutput += String(pixy.ccc.blocks[biggest].m_y / 199.0); //319 and 199 were, we found, the dimensions of the screen
     piOutput += "|";
     piOutput += String(area / 64000);
+    piOutput += ".";
   }
 
   Serial.println(piOutput);

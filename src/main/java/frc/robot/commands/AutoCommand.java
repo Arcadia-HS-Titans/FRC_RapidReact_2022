@@ -60,6 +60,8 @@ public class AutoCommand extends CommandBase {
     @Override
     public void execute() {
         if(timer.get() < 1) {
+            intakeSubsystem.elevateBall(0);
+            intakeSubsystem.enterBall(0);
             ballShooterSubsystem.fire(.42);
             return;
         }

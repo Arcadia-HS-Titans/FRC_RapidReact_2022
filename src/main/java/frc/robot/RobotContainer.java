@@ -44,6 +44,7 @@ public class RobotContainer {
 
         // Starts up a camera
         CameraServer.startAutomaticCapture();
+        CameraServer.startAutomaticCapture(1);
 
         Shuffleboard.addEventMarker("A", "a", EventImportance.kNormal);
         this.joystick = new Joystick(0);
