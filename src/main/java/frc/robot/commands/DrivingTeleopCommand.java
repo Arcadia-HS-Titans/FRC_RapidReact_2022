@@ -43,6 +43,7 @@ public class DrivingTeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
-        arduinoSubsystem.read();
+        String read = arduinoSubsystem.read();
+        System.out.println(read);
     }
 }

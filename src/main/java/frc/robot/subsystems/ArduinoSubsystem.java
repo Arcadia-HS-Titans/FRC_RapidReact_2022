@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArduinoSubsystem extends SubsystemBase {
     private SerialPort arduino;
+    private Boolean send = true;
 
     public ArduinoSubsystem() {
         try {
@@ -17,23 +18,75 @@ public class ArduinoSubsystem extends SubsystemBase {
         }
     }
 
-    private String stringBuilder = ("");
+    private StringBuffer stringBuilder = new StringBuffer();
     private static final String packetStop = "EOP"; // End Of Packet
 
+    public final class PixyPacket {
+        public double x;
+        public double y;
+        public double scale;
+
+        public PixyPacket(double x, double y, double scale) {
+            this.x = x;
+            this.y = y;
+            this.scale = scale;
+        }
+
+        public PixyPacket(List<Double> list) {
+            this.x = list.get(0);
+            this.y = list.get(1);
+            this.scale = list.get(2);
+        }
+
+        public PixyPacket() {
+            this.x = 0;
+            this.y = 0;
+            this.scale = 0;
+        }
+    }
+
+    public void sendPackets(Boolean s) {
+        send = false;
+    }
+
     public String read() {
-        // Get input from serial line and add to StringBuilder
-        String read = arduino.readString();
-        DriverStation.reportWarning(read, false);
-        stringBuilder += (read);
-        DriverStation.reportWarning(stringBuilder, false );
+/*        // Get input from serial line and add to StringBuilder
+        stringBuilder.append(arduino.readString());
 
         // Check if we should have stopped and sent a packet
-        int index = stringBuilder.indexOf(packetStop);
-        if(index == -1)
+        int index = stringBuilder.indexOf("EOP");
+        if(index == -1) {
             return ""; // We're still sending information, so keep on appending and return nothing
+        }
         String result = stringBuilder.substring(0, index);
-        // Start the stringbuilder from where it left off
-        stringBuilder = (stringBuilder.substring(index+packetStop.length()));
+        if(result.length() == 0) {
+            stringBuilder.replace(0, index+packetStop.length(), "");
+            return "";
+        }
+        return result;*/
+        // Get input from serial line and add to StringBuilder
+        stringBuilder.append(arduino.readString());
+
+        // Check if we should have stopped and sent a packet
+        int index = stringBuilder.indexOf(".");
+        if(index == -1) {
+            //We don't have 1 full packet, do we have EOPs?
+            index = stringBuilder.indexOf("EOP");
+            if(index == -1) {
+                return ""; // We're still sending information, so keep on appending and return nothing
+            }
+            //There are EOPs, clear them from the list
+            stringBuilder.replace(index, index+packetStop.length(), "");
+            return "";
+        }
+        //If we have at least 1 full packet
+        //stringBuilder.
+
+        String result = stringBuilder.substring(0, index);
+        if(result.length() == 0) {
+            stringBuilder.replace(0, index+packetStop.length(), "");
+            return "";
+        }
         return result;
     }
 }
