@@ -95,7 +95,10 @@ public class DrivingTeleopCommand extends CommandBase {
         if(gamepad.getRawAxis(2) > .5)
             intakeSubsystem.enterBall(0);
         else {
-            intakeSubsystem.enterBall(1);
+            if(joystick.getRawButton(1))
+                intakeSubsystem.enterBall(1, false);
+            else
+                intakeSubsystem.enterBall(1);
         }
         ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0) * .7);
 

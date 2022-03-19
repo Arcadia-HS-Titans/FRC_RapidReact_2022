@@ -23,6 +23,11 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void enterBall(double speed) {
+        this.enterBall(speed, true);
+    }
+
+    public void enterBall(double speed, boolean value) {
+        bottomMotor.setInverted(value);
         bottomMotor.set(speed);
     }
 

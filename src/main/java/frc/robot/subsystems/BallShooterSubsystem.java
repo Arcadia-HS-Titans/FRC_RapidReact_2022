@@ -48,7 +48,6 @@ public class BallShooterSubsystem extends SubsystemBase {
     private double value = 0;
 
     public void turnSusan(double power) {
-
         if(forcedTurning) {
             rotation += value;
             powerSusan(value);
