@@ -23,6 +23,7 @@ public class DrivingTeleopCommand extends CommandBase {
     private ArduinoSubsystem arduinoSubsystem;
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
+    private ClimbingSubsystem climbingSubsystem;
 
     public DrivingTeleopCommand(
             DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
@@ -40,6 +41,26 @@ public class DrivingTeleopCommand extends CommandBase {
         //addRequirements(arduinoSubsystem);
         addRequirements(ballShooterSubsystem);
         addRequirements(intakeSubsystem);
+    }
+
+    public DrivingTeleopCommand(
+            DrivingSubsystem drivingSubsystem, Joystick joystick /*ColorSensorSubsystem colorSensorSubSystem,*/
+            /*ArduinoSubsystem arduinoSubsystem*/, BallShooterSubsystem ballShooterSubsystem,
+            IntakeSubsystem intakeSubsystem, ClimbingSubsystem climbingSubsystem) {
+        this.drivingSubsystem = drivingSubsystem;
+        //this.colorSensorSubSystem = colorSensorSubSystem;
+        this.joystick = joystick;
+        this.gamepad = new Joystick(1);
+        //this.arduinoSubsystem = arduinoSubsystem;
+        this.ballShooterSubsystem = ballShooterSubsystem;
+        this.intakeSubsystem = intakeSubsystem;
+        this.climbingSubsystem = climbingSubsystem;
+        addRequirements(drivingSubsystem);
+        //addRequirements(colorSensorSubSystem);
+        //addRequirements(arduinoSubsystem);
+        addRequirements(ballShooterSubsystem);
+        addRequirements(intakeSubsystem);
+        addRequirements(climbingSubsystem);
     }
 
     /**Logitech contro
@@ -101,6 +122,11 @@ public class DrivingTeleopCommand extends CommandBase {
                 intakeSubsystem.enterBall(1);
         }
         ballShooterSubsystem.turnSusan(gamepad.getRawAxis(0) * .7);
+
+        if(climbingSubsystem != null) {
+            //climbingSubsystem.setSpeed(joystick.getRawAxis(3));
+            climbingSubsystem.setSpeed(-gamepad.getRawAxis(5));
+        }
 
         //Log velocity
         /*ArduinoSubsystem.PixyPacket read = arduinoSubsystem.read();

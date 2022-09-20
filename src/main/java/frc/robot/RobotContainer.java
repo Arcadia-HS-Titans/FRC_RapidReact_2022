@@ -27,6 +27,7 @@ public class RobotContainer {
     //private ColorSensorSubsystem colorSubsystem; // I2C port on RIO
     private final BallShooterSubsystem ballShooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
+    private ClimbingSubsystem climbingSubsystem;
 
     // Devices
     public final Joystick joystick;
@@ -53,8 +54,10 @@ public class RobotContainer {
         this.ballShooterSubsystem = new BallShooterSubsystem();
         this.intakeSubsystem = new IntakeSubsystem();
         //this.arduinoSubsystem = new ArduinoSubsystem();
+        this.climbingSubsystem = new ClimbingSubsystem();
         this.teleopCommand = new DrivingTeleopCommand(
-                drivingSubsystem, joystick /*colorSubsystem,*//*arduinoSubsystem*/, ballShooterSubsystem, intakeSubsystem);
+                drivingSubsystem, joystick /*colorSubsystem,*//*arduinoSubsystem*/, ballShooterSubsystem,
+                intakeSubsystem, climbingSubsystem);
         this.autoCommand = new AutoCommand(/*arduinoSubsystem*/ /*colorSubsystem,*/ drivingSubsystem, ballShooterSubsystem, intakeSubsystem);
         // Configure default commands
         // Set the default drive command to split-stick arcade drive
